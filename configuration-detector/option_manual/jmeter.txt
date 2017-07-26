@@ -1,0 +1,263 @@
+-h#print usage information and exit
+-v#print the version information and exit
+-p#the jmeter property file to use
+-q#additional property file(s)
+-t#the jmeter test(.jmx) file to run
+-j#the jmeter log file
+-l#the file to log samples to
+-n#run JMeter in nongui mode
+-s#run the JMeter server
+-H#Set a proxy server for JMeter to use
+-P#Set proxy server port for JMeter to use
+-u#Set username for proxy server that JMeter is to use
+-a#Set password for proxy server that JMeter is to use
+-J--jmeterproperty {argument}={value}#Define additional JMeter properties
+-G--globalproperty (argument)[=(value)]#Define Global properties (sent to servers)
+-D#Define additional System properties
+-S#a property file to be added as System properties
+-L#Define loglevel: [category=]level 
+-r#Start remote servers (as defined by the jmeter property remote_hosts)
+-R#Start these remote servers (overrides remote_hosts)
+-d#the jmeter home directory to use
+-X#Exit the remote servers at end of test (non-GUI)
+ssl.provider#You can specify the class for your SSL implementation if you don't want to use the built-in Java implementation.
+xml.parser#You can specify an implementation as your XML parser. The default value is: org.apache.xerces.parsers.SAXParser
+remote_hosts#Comma-delimited list of remote JMeter hosts (or host:port if required). If you are running JMeter in a distributed environment, list the machines where you have JMeter remote servers running. This will allow you to control those servers from this machine's GUI
+not_in_menu#A list of components you do not want to see in JMeter's menus. As JMeter has more and more components added, you may wish to customize your JMeter to show only those components you are interested in. You may list their classname or their class label (the string that appears in JMeter's UI) here, and they will no longer appear in the menus.
+search_paths#List of paths (separated by ;) that JMeter will search for JMeter plugin classes, for example additional samplers. A path item can either be a jar file or a directory. Any jar file in such a directory will be automatically included in search_paths, jar files in sub directories are ignored. The given value is in addition to any jars found in the lib/ext directory.
+user.classpath#List of paths that JMeter will search for utility and plugin dependency classes. Use your platform path separator to separate multiple paths. A path item can either be a jar file or a directory. Any jar file in such a directory will be automatically included in user.classpath, jar files in sub directories are ignored. The given value is in addition to any jars found in the lib directory. All entries will be added to the class path of the system class loader and also to the path of the JMeter internal loader.
+plugin_dependency_paths#List of paths (separated by ;) that JMeter will search for utility and plugin dependency classes. A path item can either be a jar file or a directory. Any jar file in such a directory will be automatically included in plugin_dependency_paths, jar files in sub directories are ignored. The given value is in addition to any jars found in the lib directory or given by the user.classpath property. All entries will be added to the path of the JMeter internal loader only. For plugin dependencies using plugin_dependency_paths should be preferred over user.classpath.
+user.properties#Name of file containing additional JMeter properties. These are added after the initial property file, but before the -q and -J options are processed.
+system.properties#Name of file containing additional system properties. These are added before the -S and -D options are processed.
+log_level.jorphan.reflect#Logging configuration
+log_level.jmeter.util.HttpSSLProtocolSocketFactory#enabling the next debug line causes javax.net.ssl.SSLException: Received fatal alert: unexpected_message for certain sites when used with the default HTTP Sampler
+log_level.jmeter.util.JsseSSLManager#Logging configuration
+log_level.jmeter.protocol.http.proxy.HttpRequestHdr#Logging configuration
+java.net.preferIPv4Stack#
+java.net.preferIPv6Addresses#
+networkaddress.cache.ttl#
+networkaddress.cache.negative.ttl#
+javax.net.ssl.trustStore#
+javax.net.ssl.trustStorePassword#
+javax.net.ssl.trustStoreProvider#
+javax.net.ssl.trustStoreType#
+javax.net.ssl.keyStore#
+javax.net.ssl.keyStorePassword#
+javax.net.ssl.keyStoreProvider#
+javax.net.ssl.keyStoreType#
+javax.net.debug#generates the list below: all turn on all debugging ssl turn on ssl debugging
+sun.net.http.allowRestrictedHeaders#We enable the following property to allow headers such as "Host" to be passed through.
+language=en#Preferred GUI language.
+locales.add#Additional locale(s) to add to the displayed list.
+cookies=cookies#Netscape HTTP Cookie file
+file_format #File format configuration for JMX and JTL files         - affects both JMX and JTL files
+file_format.testplan#File format configuration for JMX and JTL files - affects JMX files only
+file_format.testlog#File format configuration for JMX and JTL files  - affects JTL files only
+xml.parser=org.apache.xerces.parsers.SAXParser#XML Reader(Parser)
+xpath.namespace.config=#Path to a Properties file containing Namespace mapping in the form
+https.sessioncontext.shared#By default, SSL session contexts are now created per-thread, rather than being shared.  The original behaviour can be enabled by setting the JMeter property: 
+https.default.protocol=TLS#Default HTTPS protocol level: 
+https.default.protocol=SSLv3#This may need to be changed here (or in user.properties) to: 
+https.socket.protocols#List of protocols to enable (unlikely to be needed):
+https.use.cached.ssl.context#Control if we allow reuse of cached SSL context between iterations set the value to 'false' to reset the SSL context each iteration
+https.keyStoreStartIndex#Start and end index to be used with keystores with many entries
+https.keyStoreEndIndex#Start and end index to be used with keystores with many entries
+jmeter.laf.windows_xp#LAF can be overridden by os.name (lowercased, spaces replaced by '_')
+jmeter.laf.windows# Failing that, the OS family = os.name, but only up to first space:
+jmeter.laf.mac#Mac apparently looks better with the System LAF
+jmeter.laf#Failing that, the JMeter default laf can be defined:
+jmeter.loggerpanel.display#LoggerPanel display
+jmeter.errorscounter.display#Error/Fatal Log count display
+jmeter.loggerpanel.maxlength#Max characters kept in LoggerPanel, default to 80000 chars
+jmeter.toolbar.display#Toolbar display
+jmeter.toolbar.icons#Toolbar icon definitions
+jmeter.toolbar#Toolbar list
+jmeter.icons#Icon definitions
+server_port#RMI port to be used by the server (must start rmiregistry with same port)
+client.rmi.localport#Parameter that controls the RMI port used by the RemoteSampleListenerImpl
+server.rmi.port#To change the default port (1099) used to access the server:
+server.rmi.localport#To use a specific port for the JMeter server engine, define
+server.rmi.create#To stop the server creating the RMI registry:
+server.exitaftertest#cause JMeter to exit after the first test
+includecontroller.prefix#Prefix used by IncludeController when building file name
+log_format#Default format: 
+log_format_type#Predefined formats in the JMeter LoggingManager:
+log_level.jmeter#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.junit#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.control#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.testbeans#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.engine=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.threads=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.gui=WARN#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.testelement=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.util=WARN#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.util.classfinder=WARN#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.test=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.protocol.http=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.protocol.http.control=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.protocol.ftp=WARN#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.protocol.jdbc=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.protocol.java=WARN#Logging levels for the logging categories in JMeter. 
+log_level.jmeter.testelements.property=DEBUG#Logging levels for the logging categories in JMeter. 
+log_level.jorphan=INFO#Logging levels for the logging categories in JMeter. 
+log_file=jmeter.log#Combined log file (for jmeter and jorphan) 
+log_file.jorphan=jorphan.log#Or define separate logs if required:
+log_file.jmeter=jmeter.log#Or define separate logs if required:
+log_config=logkit.xml#Excalibur logging provides the facility to configure logging using  configuration files written in XML. This allows for such features as  log file rotation which are not supported directly by JMeter.
+http.java.sampler.retries=10#Number of connection retries performed by HTTP Java sampler before giving up
+httpclient.parameters.file=httpclient.parameters#define a properties file for overriding Commons HttpClient parameters
+hc.parameters.file=hc.parameters#define a properties file for overriding Apache HttpClient parameters
+httpclient.timeout#set the socket timeout (or use the parameter http.socket.timeout) 
+httpclient.version#Set the http version (defaults to 1.1)
+httpclient.socket.http.cps#Define characters per second > 0 to emulate slow connections
+httpclient.socket.https.cps#Define characters per second > 0 to emulate slow connections
+httpclient.loopback#Enable loopback protocol
+httpclient.localaddress#Define the local host address to be used for multi-homed hosts
+log_level.org.apache.commons.httpclient#
+log_level.org.apache.commons.httpclient.Authenticator#
+log_level.httpclient.wire.header#Show headers only
+log_level.httpclient.wire#Full wire debug produces a lot of output; consider using separate file:
+log_file.httpclient#Full wire debug produces a lot of output; consider using separate file:
+log_level.org.apache.http.wire#Apache Commons HttpClient logging examples
+log_level.org.apache.http#Enable full wire + context logging
+log_level.org.apache.http.impl.conn#Enable context logging for connection management / request execution
+log_level.org.apache.http.impl.client#Enable context logging for connection management / request execution
+httpclient4.retrycount#Number of retries to attempt (default 1)
+httpclient3.retrycount#Number of retries to attempt (default 1)
+jmeter.save.saveservice.output_format#legitimate values: xml, csv, db.  Only xml and csv are currently supported.
+jmeter.save.saveservice.assertion_results_failure_message#assertion_results_failure_message only affects CSV output
+jmeter.save.saveservice.assertion_results#
+jmeter.save.saveservice.data_type=true#
+jmeter.save.saveservice.label=true#
+jmeter.save.saveservice.response_code=true#
+jmeter.save.saveservice.response_data#response_data is not currently supported for CSV output
+jmeter.save.saveservice.response_data.on_error#Save ResponseData for failed samples
+jmeter.save.saveservice.response_message#
+jmeter.save.saveservice.successful=true#
+jmeter.save.saveservice.thread_name=true#
+jmeter.save.saveservice.time=true#
+jmeter.save.saveservice.subresults=true#
+jmeter.save.saveservice.assertions=true#
+jmeter.save.saveservice.latency=true#
+jmeter.save.saveservice.samplerData=false#
+jmeter.save.saveservice.responseHeaders=false#
+jmeter.save.saveservice.requestHeaders=false#
+jmeter.save.saveservice.encoding=false#
+jmeter.save.saveservice.bytes=true#
+jmeter.save.saveservice.url=false#
+jmeter.save.saveservice.filename=false#
+jmeter.save.saveservice.hostname=false#
+jmeter.save.saveservice.thread_counts=false#
+jmeter.save.saveservice.sample_count=false#
+jmeter.save.saveservice.idle_time=false#
+jmeter.save.saveservice.timestamp_format#Timestamp format - this only affects CSV output files
+jmeter.save.saveservice.default_delimiter=,#
+jmeter.save.saveservice.print_field_names=false#
+sample_variables#Optional list of JMeter variable names whose values are to be saved in the result data files.
+jmeter.save.saveservice.xml_pi#Optional xml processing instruction for line 2 of the file: 
+jmeter.save.saveservice.base_prefix#Prefix used to identify filenames that are relative to the current base
+sampleresult.timestamp.start#Save the start time stamp instead of the end
+sampleresult.useNanoTime#Whether to use System.nanoTime() - otherwise only use System.currentTimeMillis()
+sampleresult.nanoThreadSleep#Use a background thread to calculate the nanoTime offset
+upgrade_properties#File that holds a record of name changes for backward compatibility issues
+proxy.pause=1000#
+proxy.number.requests#Add numeric prefix to Sampler names (default false)
+proxy.excludes.suggested#List of URL patterns that will be added to URL Patterns to exclude in Proxy
+jmeter.httpsampler#Change the default HTTP Sampler (currently HttpClient4)
+proxy.content_type_include#Default content-type include filter to use 
+proxy.content_type_exclude#Default content-type exclude filter to use
+proxy.headers.remove#Default headers to remove from Header Manager elements
+proxy.binary.types#Binary content-type handling
+proxy.binary.directory=user.dir # The files will be saved in this directory:
+proxy.binary.filesuffix=.binary # The files will be created with this file filesuffix:
+http.proxyDomain= # use command-line flags for user-name and password
+proxy.cert.directory=.  # SSL configuration
+proxy.cert.file=proxyser# SSL configurationver.jks
+proxy.cert.type=JKS# SSL configuration
+proxy.cert.keystorepass=password# SSL configuration
+proxy.cert.keypassword=password# SSL configuration
+proxy.cert.factory=SunX509# SSL configuration
+proxy.ssl.protocol=SSLv3# SSL configuration
+HTTPResponse.parsers# Space-separated list of parser groups
+htmlParser.className=# Define the HTML parser to be used.
+htmlParser.types# Other parsers:
+wmlParser.className#
+wmlParser.types#
+sample_sender_client_configured=true # How is Sample sender implementations configured:  - true (default) means client configuration will be used - false means server configuration will be used
+mode=Standard# Statistical returns sample summary statistics hold_samples was originally defined as a separate property, but can now also be defined using mode=Hold mode can also be the class name of an implementation of org.apache.jmeter.samplers.SampleSender 
+key_on_threadname#
+hold_samples#
+num_sample_threshold#
+time_threshold#
+asynch.batch.queue.size#default queue size
+monitor.buffer.size=800 # To set the Monitor Health Visualiser buffer size, enter the desired value
+tcp.handler=TCPClientImpl # The default handler class
+tcp.eolByte=1000 # eolByte = byte value for end of line  set this to a value outside the range -128 to +127 to skip eol checking
+tcp.charset= # TCP Charset, used by org.apache.jmeter.protocol.tcp.sampler.TCPClientImpl  default to Platform defaults charset as returned by Charset.defaultCharset().name()
+tcp.status.prefix=Status # status.prefix and suffix = strings that enclose the status response code
+tcp.status.suffix=.# status.prefix and suffix = strings that enclose the status response code
+tcp.status.properties # status.properties = property file to convert codes to messages
+tcp.binarylength.prefix.length # The length prefix used by LengthPrefixedBinaryTCPClientImpl implementation  defaults to 2 bytes.
+summariser.name=summary # Define the following property to automatically start a summariser with that name (applies to non-GUI mode only)
+summariser.interval=180 # interval between summaries (in seconds) default 3 minutes
+summariser.log=true # Write messages to log file
+summariser.out=true # Write messages to System.out
+beanshell.server.port# Define the port number as non-zero to start the http server on that port
+beanshell.server.file= # Define the server initialisation file
+beanshell.init.file= # Define a file to be processed at startup  This is processed using its own interpreter.
+beanshell.sampler.init=BeanShellSampler.bshrc #
+beanshell.function.init=BeanShellFunction.bshrc #
+beanshell.assertion.init=BeanShellAssertion.bshrc #
+beanshell.listener.init=etc #
+beanshell.postprocessor.init=etc #
+beanshell.preprocessor.init=etc #
+beanshell.timer.init=etc #
+mailer.successlimit=2 # Number of successful samples before a message is sent
+mailer.failurelimit=2 # Number of failed samples before a message is sent
+csvread.delimiter=, # CSVRead delimiter setting (default ",")
+csvread.delimiter=# The following line has a tab after the =
+time.YMD=yyyyMMdd # The properties below can be used to redefine the default formats
+csvdataset.eofstring=<EOF> # String to return at EOF (if recycle not used)
+ldapsampler.max_sorted_results=1000 # Maximum number of search results returned by a search that will be sorted  to guarantee a stable ordering (if more results then this limit are retruned  then no sorting is done). Set to 0 to turn off all sorting, in which case  "Equals" response assertions will be very likely to fail against search results.
+assertion.equals_section_diff_len=100 # Number of characters to log for each of three sections (starting matching section, diff section,  ending matching section where not all sections will appear for all diffs) diff display when an Equals  assertion fails. So a value of 100 means a maximum of 300 characters of diff text will be displayed   (+ a number of extra characters like "..." and "[[["/"]]]" which are used to decorate it).
+assertion.equals_diff_delta_start=[[[ # test written out to log to signify start/end of diff delta
+assertion.equals_diff_delta_end=]]]# test written out to log to signify start/end of diff delta
+mirror.server.port=8081 # If defined, then start the mirror server on the port
+oro.patterncache.size=1000 # ORO PatternCacheLRU size
+propertyEditorSearchPath=null#
+jmeter.expertMode=true # Turn expert mode on/off: expert mode will show expert-mode beans and properties
+httpsampler.max_redirects=5 # Maximum redirects to follow in a single sequence (default 5)
+httpsampler.max_frame_depth=5 # Maximum frame/iframe nesting depth (default 5)
+httpsampler.await_termination_timeout=60 # Maximum await termination timeout (secs) when concurrent download embedded resources (default 60)
+httpsampler.separate.container=true # Revert to BUG 51939 behaviour (no separate container for embedded resources) by setting the following false:
+httpsampler.ignore_failed_embedded_resources=false # If embedded resources download fails due to missing resources or other reasons, if this property is true  Parent sample will not be marked as failed 
+sampleresult.default.encoding=ISO-8859-1 # The encoding to be used if none is provided (default ISO-8859-1)
+sampleresult.getbytes.body_real_size=true # Network response size calculation method
+sampleresult.getbytes.headers_size=true # Network response size calculation method
+CookieManager.delete_null_cookies=true # CookieManager behaviour - should cookies with null/empty values be deleted?  Default is true. Use false to revert to original behaviour
+CookieManager.allow_variable_cookies=true # CookieManager behaviour - should variable cookies be allowed?  Default is true. Use false to revert to original behaviour
+CookieManager.save.cookies=false # CookieManager behaviour - should Cookies be stored as variables?
+CookieManager.name.prefix= # CookieManager behaviour - prefix to add to cookie name before storing it as a variable
+CookieManager.check.cookies=true # CookieManager behaviour - check received cookies are valid before storing them?
+jmeterthread.startearlier=false # (2.0.3) JMeterThread behaviour has been changed to set the started flag before  the controllers are initialised. This is so controllers can access variables earlier.  In case this causes problems, the previous behaviour can be restored by uncommenting the following line.
+jmeterthread.reversePostProcessors=true # (2.2.1) JMeterThread behaviour has changed so that PostProcessors are run in forward order (as they appear in the test plan) rather than reverse order as previously.  Uncomment the following line to revert to the original behaviour
+jmeterengine.startlistenerslater=false # (2.2) StandardJMeterEngine behaviour has been changed to notify the listeners after the running version is enabled. This is so they can access variables.  In case this causes problems, the previous behaviour can be restored by uncommenting the following line.
+jmeterengine.threadstop.wait=5000 # Number of milliseconds to wait for a thread to stop
+jmeterengine.remote.system.exit=false #Whether to invoke System.exit(0) in server exit code after stopping RMI
+jmeterengine.stopfail.system.exit=true # Whether to call System.exit(1) on failure to stop threads in non-GUI mode.  If this is disabled, it may be necessary to kill the JVM externally
+jmeter.exit.check.pause=2000 # How long to pause (in ms) in the daemon thread before reporting that the JVM has failed to exit.  If the value is <= 0, the JMeter does not start the daemon thread 
+jmeterengine.nongui.port=4445 # If running non-GUI, then JMeter listens on the following port for a shutdown message.  To disable, set the port to 1000 or less.
+jmeterengine.nongui.maxport=4455 # If the initial port is busy, keep trying until this port is reached (to disable searching, set the value less than or equal to the .port property)
+jmeterthread.rampup.granularity=1000 # How often to check for shutdown during ramp-up (milliseconds)
+onload.expandtree=false #Should JMeter expand the tree when loading a test plan?
+view.results.tree.max_size=0 # Maximum size of HTML page that can be displayed; default=200 * 1024
+document.max_size=0 # Maximum size of Document that can be parsed by Tika engine; defaut=10 * 1024 * 1024 (10MB)
+JMSSampler.useSecurity.properties=false # Enable the following property to stop JMS Point-to-Point Sampler from using the properties java.naming.security.[principal|credentials] when creating the queue connection
+confirm.delete.skip=false # Set the following value to true in order to skip the delete confirmation dialogue
+soap.document_cache=50 # Size of Document Cache
+jsr223.compiled_scripts_cache_size=100 # Size of compiled scripts cache
+search_paths=/app1/lib;/app2/lib # List of paths (separated by ;) to search for additional JMeter extension classes
+classfinder.functions.contain=.functions.#
+classfinder.functions.notContain=.gui.#
+user.properties=user.properties # Should JMeter automatically load additional JMeter properties?  File name to look for (comment to disable)
+system.properties=system.properties # Should JMeter automatically load additional system properties?  File name to look for (comment to disable)

@@ -1,0 +1,77 @@
+Bad messages:
+
+1.
+--start-log-file: to a non-existed file
+
+2.
+--module=rewrite => --module=rewrite
+
+3.
+threads.min = 10  (the server hangs)
+change to negative number
+
+4.
+bad message
+java -DSTOP.KEY = stop_jetty -jar ../start.jar --stop
+(just dump numberformat exception)
+
+launch jetty by: java -DSTOP.PORT = 8080 -DSTOP.KEY = stop_jetty -jar ../start.jar
+then the following command leads to a bad message:
+java -DSTOP.KEY = stop_jetty -jar ../start.jar   (it misses -DSTOP.PORT = 8080)
+
+5.
+jetty.dump.start=true (if we change true to tttrue, a typo)
+jetty will supersede it with false
+
+
+
+------------------------
+
+63. mutate: demo.realm with value: C:\Users\szhang\Documents\my_docs\test\test.py
+  file: 252
+64. mutate: demo.realm with value: 
+  file: 256
+81. mutate: threads.min with value: 0
+  file: 324
+82. mutate: threads.min with value: -10
+  file: 328
+83. mutate: threads.min with value: -9
+  file: 332
+84. mutate: threads.min with value: -11
+  file: 336
+86. mutate: threads.min with value: 
+  file: 344
+89. mutate: threads.max with value: 0
+  file: 356
+90. mutate: threads.max with value: -200
+  file: 360
+91. mutate: threads.max with value: -199
+  file: 364
+92. mutate: threads.max with value: -201
+  file: 368
+94. mutate: threads.max with value: 
+  file: 376
+102. mutate: threads.timeout with value: 
+  file: 408
+110. mutate: jetty.output.buffer.size with value: 
+  file: 440
+118. mutate: jetty.request.header.size with value: 
+  file: 472
+126. mutate: jetty.response.header.size with value: 
+  file: 504
+Has error: 39
+Bad msg count: 16
+
+------------------------
+
+Good messages:
+
+1. 
+--write-module-graph= file (if the file already exists, if will dump an exception)
+However the exception still contains good information:
+java.nio.file.FileAlreadyExistsException: E:\xx\
+
+2.
+launch jetty by: java -DSTOP.PORT = 8080 -DSTOP.KEY = stop_jetty -jar ../start.jar
+then the following command leads to a bad message:
+java -DSTOP.PORT = 8000 -DSTOP.KEY = stop_jetty -jar ../start.jar   (it mispecified -DSTOP.PORT = 8000)

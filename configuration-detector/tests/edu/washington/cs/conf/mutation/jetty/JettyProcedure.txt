@@ -1,0 +1,18 @@
+some starting options:
+
+go to the demo-base
+
+under folder ./start.d or the start.ini file
+
+java -jar start.jar --help
+
+http://www.eclipse.org/jetty/documentation/current/quickstart-running-jetty.html
+
+configuration for deployed web apps
+
+http://www.eclipse.org/jetty/documentation/current/quickstart-deploying-webapps.html
+
+configuration introduction:
+
+http://www.eclipse.org/jetty/documentation/current/quick-start-configure.html
+

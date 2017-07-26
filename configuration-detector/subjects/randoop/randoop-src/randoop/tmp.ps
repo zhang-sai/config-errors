@@ -1,0 +1,2829 @@
+%!PS-Adobe-3.0
+%%Title: AbstractGenerator.java, ForwardGenerator.java
+%%For: James Andrews
+%%Creator: a2ps version 4.14
+%%CreationDate: Sun Dec 18 00:15:54 2011
+%%BoundingBox: 24 24 588 768
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 8
+%%PageOrder: Ascend
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      % <vector> <key> <val>
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def % -
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Get the underline position and thickness if they're defined.
+    % Use 1 if they are not defined.
+    currentdict /FontInfo 2 copy known
+    { get
+      /UnderlinePosition 2 copy % <FontInfo> /UP <FontInfo> /UP
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+
+      /UnderlineThickness 2 copy % <FontInfo> /UT <FontInfo> /UT
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+      pop % -
+    }{ pop pop
+    } ifelse
+
+    currentdict
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 612 def
+/sw 792 def
+/llx 24 def
+/urx 768 def
+/ury 588 def
+/lly 24 def
+/#copies 1 def
+/th 15.000000 def
+/fnfs 11 def
+/bfs 7.493857 def
+/cw 4.496314 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 81.400000 mul
+def
+/ph
+   522.321860 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 0 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1-2) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(package) K
+( randoop;) p n
+() N
+(import) K
+( java.io.IOException;) p n
+(import) K
+( java.util.ArrayList;) p n
+(import) K
+( java.util.LinkedList;) p n
+(import) K
+( java.util.List;) p n
+(import) K
+( java.util.Set;) p n
+() N
+(import) K
+( plume.Option;) p n
+(import) K
+( plume.OptionGroup;) p n
+(import) K
+( plume.Unpublicized;) p n
+(import) K
+( randoop.experiments.StatsWriter;) p n
+(import) K
+( randoop.main.GenInputsAbstract;) p n
+(import) K
+( randoop.util.Log;) p n
+(import) K
+( randoop.util.ProgressDisplay;) p n
+(import) K
+( randoop.util.ReflectionExecutor;) p n
+(import) K
+( randoop.util.Timer;) p n
+() N
+(/**) C n
+( * Algorithm template for implementing a test generator.) N
+( * ) N
+( * The main generation loop is defined in method <code>explore\(\)</code>,) N
+( * which repeatedly generates a new sequence, determines if it a failing) N
+( * sequence, and stops the process when the time or sequence limit expires.) N
+( * The process of generating a new sequences is left abstract.) N
+( * ) N
+( * @see randoop.ForwardGenerator) N
+( */) N
+(public) K
+( ) p
+(abstract) K
+( ) p
+(class) K
+( ) p
+(AbstractGenerator) L
+( {) p n
+() N
+(  @OptionGroup\(value=") S
+(AbstractGenerator unpublicized options) str
+(", unpublicized=) p
+(true) k
+(\)) p n
+() N
+(  @Unpublicized) N
+(  @Option\(") S
+(Dump each sequence to the log file) str
+("\)) p n
+(  ) S
+(public) K
+( ) p
+(static) K
+( ) p
+(boolean) k
+( dump_sequences = ) p
+(false) k
+(;) p n
+(  ) N
+(  @RandoopStat\(") S
+(Number of generation steps \(one step consistents of an attempt to generate and execute a new, ) str n
+(distinct sequence\)) S
+("\)) p n
+(  ) S
+(public) K
+( ) p
+(int) k
+( num_steps = 0;) p n
+() N
+(  @RandoopStat\(") S
+(Number of sequences generated.) str
+("\)) p n
+(  ) S
+(public) K
+( ) p
+(int) k
+( num_sequences_generated = 0;) p n
+(  ) N
+(  @RandoopStat\(") S
+(Number of sequences generated that reveal a failure.) str
+("\)) p n
+(  ) S
+(public) K
+( ) p
+(int) k
+( num_failing_sequences = 0;) p n
+() N
+(  ) S
+(/**) C n
+(   * The timer used to determine how much time has elapsed since the start of) N
+(   * generator and whether generation should stop.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(final) K
+( Timer timer = ) p
+(new) K
+( Timer\(\);) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Time limit for generation. If generation reaches the specified time) N
+(   * limit \(in milliseconds\), the generator stops generating sequences.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(final) K
+( ) p
+(long) k
+( maxTimeMillis;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Sequence limit for generation. If generation reaches the specified sequence) N
+(   * limit, the generator stops generating sequences.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(final) K
+( ) p
+(int) k
+( maxSequences;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * The list of statement kinds \(methods, constructors, primitive value declara) N
+(tions, etc.\)) N
+(   * used to generate sequences. In other words, statements specifies the univer) N
+(se) N
+(AbstractGenerator.java) (Page 1/5) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(   * of operations from which sequences are generated.) C n
+(   */) N
+(  ) p
+(public) K
+( List<StatementKind> statements;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Container for execution visitors used during execution of sequences. ) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(final) K
+( MultiVisitor executionVisitor;) p n
+() N
+(  ) S
+(/**) C n
+(   * Component manager responsible for storing previously-generated sequences.) N
+(   */) N
+(  ) p
+(public) K
+( ComponentManager componentManager;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Customizable stopping criterion in addition to time and sequence limits.) N
+(   */) N
+(  ) p
+(private) K
+( IStopper stopper;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Manages notifications for listeners.) N
+(   * ) N
+(   * @see randoop.IEventListener) N
+(   */) N
+(  ) p
+(public) K
+( RandoopListenerManager listenerMgr;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * Updates the progress display message printed to the console.) N
+(   */) N
+(  ) p
+(private) K
+( ProgressDisplay progressDisplay;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * This field is set by Randoop to point to the sequence currently being execu) N
+(ted.) N
+(   * In the event that Randoop appears to hang, this sequence is printed out to ) N
+(console) N
+(   * to help the user debug the cause of the hanging behavior.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(static) K
+( Sequence currSeq = ) p
+(null) k
+(;) p n
+(  ) N
+(  ) S
+(/**) C n
+(   * The list of final sequences that are printed out as JUnit tests \(i.e. Rando) N
+(op's output\). ) N
+(   */) N
+(  ) p
+(public) K
+( List<ExecutableSequence> outSeqs = ) p
+(new) K
+( ArrayList<ExecutableSequence>\(\);) p n
+() N
+(  ) S
+(/**) C n
+(   * A list of filters that can be installed to help determine if a sequence) N
+(   * should be added to the final sequence list outSeqs.) N
+(   */) N
+(  ) p
+(public) K
+( List<ITestFilter> outputTestFilters;) p n
+(  ) N
+( ) N
+(  ) S
+(/**) C n
+(   * Constructs a generator with the given parameters.) N
+(   * ) N
+(   * @param statements Statements \(e.g. methods and constructors\) used to create) N
+( sequences. Cannot be null.) N
+(   * ) N
+(   * @param timeMillis maximum time to spend in generation. Must be non-negative) N
+(.) N
+(   * ) N
+(   * @param maxSequences maximum number of sequences to generate. Must be non-ne) N
+(gative.) N
+(   * ) N
+(   * @param componentManager component manager to use to store sequences during ) N
+(component-based generation.) N
+(   *        Can be null, in which case the generator's component manager is init) N
+(ialized as <code>new ComponentManager\(\)</code>.) N
+(AbstractGenerator.java) (Page 2/5) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(AbstractGenerator.java) (1/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3-4) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(   *        ) C n
+(   * @param stopper Optional, additional stopping criterion for the generator. C) N
+(an be null.) N
+(   * ) N
+(   * @param listenerManager Manager that stores and calls any listeners to use d) N
+(uring generation. Can be null.) N
+(   *  ) N
+(   * @param testfilters List of filters to determine which sequences to output. ) N
+(Can be null or empty.) N
+(   */) N
+(  ) p
+(public) K
+( AbstractGenerator\(List<StatementKind> statements, ) p
+(long) k
+( timeMillis, ) p
+(int) k
+( ) p n
+(maxSequences, ComponentManager componentManager,) N
+(      IStopper stopper, RandoopListenerManager listenerManager, List<ITestFilter) N
+(> testfilters\) {) N
+(    assert statements != ) S
+(null) k
+(;) p n
+() N
+(    this.maxTimeMillis = timeMillis;) N
+() N
+(    this.maxSequences = maxSequences;) N
+() N
+(    this.statements = statements;) N
+() N
+(    this.executionVisitor = ) S
+(new) K
+( MultiVisitor\(\);) p n
+() N
+(    ) S
+(if) K
+( \(componentManager == ) p
+(null) k
+(\) {) p n
+(      this.componentManager = ) S
+(new) K
+( ComponentManager\(\);) p n
+(    } ) S
+(else) K
+( {) p n
+(      this.componentManager = componentManager;) N
+(    }) N
+(    ) N
+(    this.stopper = stopper;) N
+(    ) N
+(    this.listenerMgr = listenerManager;) N
+(    ) N
+(    outputTestFilters = ) S
+(new) K
+( LinkedList<ITestFilter>\(\);) p n
+(    ) S
+(if) K
+( \(testfilters == ) p
+(null) k
+( || testfilters.isEmpty\(\)\) {) p n
+(      outputTestFilters.add\() S
+(new) K
+( DefaultTestFilter\(\)\);) p n
+(    } ) S
+(else) K
+( {) p n
+(      outputTestFilters.addAll\(testfilters\);) N
+(    }) N
+(  }) N
+() N
+(  ) S
+(protected) K
+( ) p
+(boolean) k
+( stop\(\) {) p n
+(    ) S
+(return) K n
+(    \(listenerMgr != ) p
+(null) k
+( && listenerMgr.stopGeneration\(\)\)) p n
+(    || \(timer.getTimeElapsedMillis\(\) >= maxTimeMillis\)) N
+(    || \(numSequences\(\) >= maxSequences\)) N
+(    || \(stopper != ) S
+(null) k
+( && stopper.stop\(\)\);) p n
+(  }) N
+() N
+(  ) S
+(public) K
+( ) p
+(abstract) K
+( ExecutableSequence step\(\);) p n
+() N
+(  ) S
+(public) K
+( ) p
+(abstract) K
+( ) p
+(int) k
+( numSequences\(\);) p n
+() N
+(  ) S
+(/**) C n
+(   * Creates and executes new sequences in a loop.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(void) k
+( explore\(\) {) p n
+() N
+(      Log.log\(this.statements\);) N
+() N
+(      timer.startTiming\(\);) N
+() N
+(      ) S
+(if) K
+( \(!GenInputsAbstract.noprogressdisplay\) {) p n
+(          progressDisplay = ) S
+(new) K
+( ProgressDisplay\() p
+(this) k
+(, listenerMgr, ProgressDispl) p n
+(ay.Mode.MULTILINE, 200\);) N
+(          progressDisplay.start\(\);) N
+(      }) N
+(      ) N
+(AbstractGenerator.java) (Page 3/5) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      ) p
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(        Log.logLine\(") S
+(Initial sequences \(seeds\):) str
+("\);) p n
+(        ) S
+(for) K
+( \(Sequence s : componentManager.getAllGeneratedSequences\(\)\) {) p n
+(          Log.logLine\(s.toString\(\)\);          ) N
+(        }) N
+(      }) N
+(      ) N
+(      ) S
+(// Notify listeners that exploration is starting.) c n
+(      ) p
+(if) K
+( \(listenerMgr != ) p
+(null) k
+(\) {) p n
+(        listenerMgr.explorationStart\(\);) N
+(      }) N
+(      ) N
+(      ) S
+(while) K
+( \(!stop\(\)\) {) p n
+() N
+(        ) S
+(// Notify listeners we are about to perform a generation step.) c n
+(        ) p
+(if) K
+( \(listenerMgr != ) p
+(null) k
+(\) {) p n
+(          listenerMgr.generationStepPre\(\);) N
+(        }) N
+(        ) N
+(        num_steps++;) N
+() N
+(        ExecutableSequence eSeq = step\(\);) N
+(        ) S
+(if) K
+( \(dump_sequences\) {) p n
+(          System.out.printf \(") S
+(seq before run: %s%n) str
+(", eSeq\);) p n
+(        }) N
+(        ) N
+(        ) S
+(// Notify listeners we just completed generation step.) c n
+(        ) p
+(if) K
+( \(listenerMgr != ) p
+(null) k
+(\) {) p n
+(          listenerMgr.generationStepPost\(eSeq\);) N
+(        }) N
+() N
+(        ) S
+(if) K
+( \(eSeq == ) p
+(null) k
+(\)) p n
+(          ) S
+(continue) K
+(;) p n
+(        ) N
+(        num_sequences_generated++;) N
+() N
+(        FailureSet fa = ) S
+(new) K
+( FailureSet\(eSeq\);) p n
+(        ) N
+(        ) S
+(if) K
+( \(fa.getFailures\(\).size\(\) > 0\) {) p n
+(          num_failing_sequences++;) N
+(        }) N
+() N
+(        ) S
+(// Output results to file.) c n
+(        ) p
+(if) K
+( \(GenInputsAbstract.expfile != ) p
+(null) k
+(\) {) p n
+(          ) S
+(try) K
+( {) p n
+(              StatsWriter.write\(GenInputsAbstract.expfile, eSeq, fa\);) N
+(          } ) S
+(catch) K
+( \(IOException e\) {) p n
+(            ) S
+(throw) K
+( ) p
+(new) K
+( Error\(e\);) p n
+(          }) N
+(        }) N
+() N
+(        ) S
+(boolean) k
+( outputSequence = ) p
+(true) k
+(;) p n
+(        ) S
+(for) K
+( \(ITestFilter f : outputTestFilters\) {) p n
+(          ) S
+(if) K
+( \(!f.outputSequence\(eSeq, fa\)\) {) p n
+(            outputSequence = ) S
+(false) k
+(;) p n
+(            ) S
+(break) K
+(;) p n
+(          }) N
+(        }) N
+(        ) S
+(if) K
+( \(outputSequence\) {) p n
+(          outSeqs.add\(eSeq\);) N
+(        }) N
+(     ) N
+(        ) S
+(if) K
+( \(dump_sequences\) {) p n
+(          System.out.printf \(") S
+(Sequence after execution:%n%s%n) str
+(", eSeq.toString\(\)\);) p n
+(          System.out.printf \(") S
+(allSequences.size\(\) = %d%n) str
+(", numSequences\(\)\);) p n
+(        }) N
+() N
+(        ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(          Log.logLine\(") S
+(Sequence after execution: ) str
+(" + Globals.lineSep + eSeq.toString\(\)\);) p n
+(AbstractGenerator.java) (Page 4/5) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(AbstractGenerator.java) (2/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5) 3
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(          Log.logLine\(") p
+(allSequences.size\(\)=) str
+(" + numSequences\(\)\);) p n
+(        }) N
+(        ) N
+(    }) N
+(      ) N
+(    ) S
+(if) K
+( \(!GenInputsAbstract.noprogressdisplay && progressDisplay != ) p
+(null) k
+(\) {) p n
+(      progressDisplay.display\(\);) N
+(      progressDisplay.shouldStop = ) S
+(true) k
+(;) p n
+(    }) N
+() N
+(    ) S
+(if) K
+( \(!GenInputsAbstract.noprogressdisplay\) {) p n
+(      System.out.println\(\);) N
+(      System.out.println\(") S
+(Normal method executions:) str
+(" + ReflectionExecutor.normalExecs\() p n
+(\)\);) N
+(      System.out.println\(") S
+(Exceptional method executions:) str
+(" + ReflectionExecutor.excepExec) p n
+(s\(\)\);) N
+(      System.out.println\(\);) N
+(      System.out.println\(") S
+(Average method execution time \(normal termination\):     ) str
+(" + String.form) p n
+(at\(") S
+(%.3g) str
+(", ReflectionExecutor.normalExecAvgMillis\(\)\)\);) p n
+(      System.out.println\(") S
+(Average method execution time \(exceptional termination\):) str
+(" + String.for) p n
+(mat\(") S
+(%.3g) str
+(", ReflectionExecutor.excepExecAvgMillis\(\)\)\);) p n
+(    }) N
+() N
+(      ) S
+(// Notify listeners that exploration is ending.) c n
+(      ) p
+(if) K
+( \(listenerMgr != ) p
+(null) k
+(\) {) p n
+(        listenerMgr.explorationEnd\(\);) N
+(      }) N
+(    }) N
+() N
+(  ) N
+(  ) S
+(/**) C n
+(   * Returns the set of sequences that are used as inputs in other sequences) N
+(   * \(and can thus be thought of as subsumed by another sequence\). This should) N
+(   * only be called for subclasses that support this.) N
+(   */) N
+(  ) p
+(public) K
+( Set<Sequence> subsumed_sequences\(\) {) p n
+(    ) S
+(throw) K
+( ) p
+(new) K
+( Error\(") p
+(subsumed_sequences not supported for ) str
+(" + this.getClass\(\)\);) p n
+(  }) N
+(}) N
+(AbstractGenerator.java) (Page 5/5) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(AbstractGenerator.java) (3/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1-2) 4
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(package) K
+( randoop;) p n
+() N
+(import) K
+( java.util.ArrayList;) p n
+(import) K
+( java.util.Collections;) p n
+(import) K
+( java.util.LinkedHashSet;) p n
+(import) K
+( java.util.List;) p n
+(import) K
+( java.util.Set;) p n
+() N
+(import) K
+( randoop.main.GenInputsAbstract;) p n
+(import) K
+( randoop.util.ArrayListSimpleList;) p n
+(import) K
+( randoop.util.ListOfLists;) p n
+(import) K
+( randoop.util.Log;) p n
+(import) K
+( randoop.util.MultiMap;) p n
+(import) K
+( randoop.util.PrimitiveTypes;) p n
+(import) K
+( randoop.util.Randomness;) p n
+(import) K
+( randoop.util.Reflection;) p n
+(import) K
+( randoop.util.SimpleList;) p n
+(import) K
+( randoop.util.Reflection.Match;) p n
+() N
+(/**) C n
+( * Randoop's forward, component-based generator.) N
+( */) N
+(public) K
+( ) p
+(class) K
+( ) p
+(ForwardGenerator) L
+( ) p
+(extends) K
+( AbstractGenerator {) p n
+() N
+(  ) S
+(/**) C n
+(   * The set of ALL sequences ever generated, including) N
+(   * sequences that were executed and then discarded.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(final) K
+( Set<Sequence> allSequences;) p n
+(  ) N
+(  ) S
+(/** Sequences that are used in other sequences \(and are thus redundant\) **/) C n
+(  ) p
+(public) K
+( Set<Sequence> subsumed_sequences = ) p
+(new) K
+( LinkedHashSet<Sequence>\(\);) p n
+() N
+(  ) S
+(// For testing purposes only. If Globals.randooptestrun==false then the array) c n
+(  ) p
+(// is never populated or queried. This set contains the same set of) c n
+(  ) p
+(// components as the set "allsequences" above, but stores them as) c n
+(  ) p
+(// strings obtained via the toCodeString\(\) method.) c n
+(  ) p
+(private) K
+( ) p
+(final) K
+( List<String> allsequencesAsCode = ) p
+(new) K
+( ArrayList<String>\(\);) p n
+() N
+(  ) S
+(// For testing purposes only.) c n
+(  ) p
+(private) K
+( ) p
+(final) K
+( List<Sequence> allsequencesAsList = ) p
+(new) K
+( ArrayList<Sequence>\(\);) p n
+() N
+(  ) S
+(// The set of all primitive values seen during generation and execution) c n
+(  ) p
+(// of sequences. This set is used to tell if a new primitive value has) c n
+(  ) p
+(// been generated, to add the value to the components.) c n
+(  ) p
+(private) K
+( Set<Object> runtimePrimitivesSeen = ) p
+(new) K
+( LinkedHashSet<Object>\(\);) p n
+(  ) N
+(  ) S
+(// Stores runtime objects created during generation. The set of objects) c n
+(  ) p
+(// is used to determine if a new sequences creates objects different from) c n
+(  ) p
+(// those created by earlier sequences.) c n
+(  ) p
+(protected) K
+( ObjectCache objectCache = ) p
+(new) K
+( ObjectCache\() p
+(new) K
+( EqualsMethodMatcher\(\)\)) p n
+(;) N
+() N
+(  ) S
+(public) K
+( ) p
+(void) k
+( setObjectCache\(ObjectCache newCache\) {) p n
+(    ) S
+(if) K
+( \(newCache == ) p
+(null) k
+(\) ) p
+(throw) K
+( ) p
+(new) K
+( IllegalArgumentException\(\);) p n
+(    this.objectCache = newCache;) N
+(  }) N
+() N
+(  ) S
+(public) K
+( ForwardGenerator\(List<StatementKind> statements,) p n
+(      ) S
+(long) k
+( timeMillis, ) p
+(int) k
+( maxSequences,) p n
+(      ComponentManager componentManager,) N
+(      IStopper stopper, RandoopListenerManager listenerManager, List<ITestFilter) N
+(> fs\) {) N
+() N
+(    ) S
+(super) K
+(\(statements, timeMillis, maxSequences, componentManager, stopper, liste) p n
+(nerManager, fs\);) N
+() N
+(    this.allSequences = ) S
+(new) K
+( LinkedHashSet<Sequence>\(\);) p n
+() N
+(ForwardGenerator.java) (Page 1/10) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(    initializeRuntimePrimitivesSeen\(\);) p n
+(    ) N
+(  }) N
+() N
+(  ) S
+(/**) C n
+(   * The runtimePrimitivesSeen set contains primitive values seen) N
+(   * during generation/execution and is used to determine new values) N
+(   * that should be added to the component set. The component set) N
+(   * initially contains a set of primitive sequences; this method) N
+(   * puts those primitives in this set.) N
+(   */) N
+(  ) p
+(private) K
+( ) p
+(void) k
+( initializeRuntimePrimitivesSeen\(\) {) p n
+(    ) S
+(for) K
+( \(Sequence s : componentManager.getAllPrimitiveSequences\(\)\) {) p n
+(      ExecutableSequence es = ) S
+(new) K
+( ExecutableSequence\(s\);) p n
+(      es.execute\() S
+(null) k
+(\);) p n
+(      NormalExecution e = \(NormalExecution\)es.getResult\(0\);) N
+(      Object runtimeValue = e.getRuntimeValue\(\);) N
+(      runtimePrimitivesSeen.add\(runtimeValue\);) N
+(    }) N
+(  }) N
+() N
+(  @Override) N
+(  ) S
+(public) K
+( ) p
+(int) k
+( numSequences\(\) {) p n
+(    ) S
+(return) K
+( allSequences.size\(\);) p n
+(  }) N
+() N
+(  ) S
+(public) K
+( ExecutableSequence step\(\) {) p n
+() N
+(    ) S
+(long) k
+( startTime = System.nanoTime\(\);) p n
+() N
+(    ) S
+(if) K
+( \(componentManager.numGeneratedSequences\(\) % GenInputsAbstract.clear == 0\)) p n
+(      componentManager.clearGeneratedSequences\(\);) N
+() N
+(    ExecutableSequence eSeq = ) S
+(null) k
+(;) p n
+() N
+(    eSeq = createNewUniqueSequence\(\);) N
+(    ) S
+(if) K
+( \(eSeq == ) p
+(null) k
+(\) {) p n
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(    }) N
+() N
+(    assert eSeq != ) S
+(null) k
+(;) p n
+() N
+(    ) S
+(if) K
+( \(GenInputsAbstract.dontexecute\) {) p n
+(      this.componentManager.addGeneratedSequence\(eSeq.sequence\);) N
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(    }) N
+() N
+(    AbstractGenerator.currSeq = eSeq.sequence;) N
+() N
+(    ) S
+(long) k
+( endTime = System.nanoTime\(\);) p n
+(    ) S
+(long) k
+( gentime = endTime - startTime;) p n
+(    startTime = endTime; ) S
+(// reset start time.) c n
+() p n
+(    eSeq.execute\(executionVisitor\);) N
+() N
+(    endTime = System.nanoTime\(\);) N
+() N
+(    eSeq.exectime = endTime - startTime;) N
+(    startTime = endTime; ) S
+(// reset start time.) c n
+() p n
+(    processSequence\(eSeq\);) N
+() N
+(    ) S
+(if) K
+( \(eSeq.sequence.hasActiveFlags\(\)\) {) p n
+(      componentManager.addGeneratedSequence\(eSeq.sequence\);) N
+(    }) N
+() N
+(    endTime = System.nanoTime\(\);) N
+(    gentime += endTime - startTime;) N
+(    eSeq.gentime = gentime;) N
+(ForwardGenerator.java) (Page 2/10) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(ForwardGenerator.java) (4/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3-4) 5
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+(    ) S
+(return) K
+( eSeq;) p n
+() N
+(  }) N
+() N
+(  ) S
+(public) K
+( Set<Sequence> allSequences\(\) {) p n
+(    ) S
+(return) K
+( Collections.unmodifiableSet\(this.allSequences\);) p n
+(  }) N
+() N
+(  ) S
+(/**) C n
+(   * Determines what indices in the given sequence are active. An active index i) N
+(   * means that the i-th method call creates an interesting/useful value that) N
+(   * can be used as an input to a larger sequence; inactive indices are never) N
+(   * used as inputs. The effect of setting active/inactive indices is that the) N
+(   * SequenceCollection to which the given sequences is added only considers the) N
+(   * active indices when deciding whether the sequence creates values of a given) N
+(   * type.) N
+(   * <p>) N
+(   * In addition to determining active indices, this method determines if any) N
+(   * primitive values created during execution of the sequence are new values) N
+(   * not encountered before. Such values are added to the component manager so) N
+(   * they can be used during subsequent generation attempts.) N
+(   */) N
+(  ) p
+(public) K
+( ) p
+(void) k
+( processSequence\(ExecutableSequence seq\) {) p n
+() N
+(    ) S
+(if) K
+( \(GenInputsAbstract.offline\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(        Log.logLine\(") S
+(Making all indices active \(offline generation specified; sequences are not executed\).) str
+("\)) p n
+(;) N
+(      }) N
+(      seq.sequence.setAllActiveFlags\(\);) N
+(      ) S
+(return) K
+(;) p n
+(    }) N
+() N
+(    ) S
+(if) K
+( \(seq.hasNonExecutedStatements\(\)\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(        Log.logLine\(") S
+(Making all indices inactive \(sequence has non-executed statements, so judging it inade) str n
+(quate for further extension\).) S
+("\);) p n
+(      }) N
+(      seq.sequence.clearAllActiveFlags\(\);) N
+(      ) S
+(return) K
+(;) p n
+(    }) N
+() N
+(    ) S
+(if) K
+( \(seq.hasFailure\(\)\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(        Log.logLine\(") S
+(Making all indices inactive \(sequence reveals a failure, so judging it inadequate for furt) str n
+(her extension\)) S
+("\);) p n
+(      }) N
+(      seq.sequence.clearAllActiveFlags\(\);) N
+(      ) S
+(return) K
+(;) p n
+(    }) N
+() N
+(    ) S
+(if) K
+( \(!seq.isNormalExecution\(\)\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(        Log.logLine\(") S
+(Making all indices inactive \(exception thrown, or failure revealed during execution\).) str
+("\)) p n
+(;) N
+(      }) N
+(      seq.sequence.clearAllActiveFlags\(\);) N
+(      ) S
+(return) K
+(;) p n
+(    }) N
+(    ) N
+(    ) S
+(// If runtime value is a primitive value, clear active flag, and) c n
+(    ) p
+(// if the value is new, add a sequence corresponding to that value.) c n
+(    ) p
+(for) K
+( \() p
+(int) k
+( i = 0; i < seq.sequence.size\(\); i++\) {) p n
+() N
+(      ) S
+(// type ensured by isNormalExecution clause ealier in this method.) c n
+(      NormalExecution e = \(NormalExecution\)seq.getResult\(i\);) p n
+(      Object runtimeValue = e.getRuntimeValue\(\);) N
+(      ) S
+(if) K
+( \(runtimeValue == ) p
+(null) k
+(\) {) p n
+(ForwardGenerator.java) (Page 3/10) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        ) p
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(          Log.logLine\(") S
+(Making index ) str
+(" + i + ") p
+( inactive \(value is null\)) str
+("\);) p n
+(        }) N
+(        seq.sequence.clearActiveFlag\(i\);) N
+(        ) S
+(continue) K
+(;) p n
+(      }) N
+(      ) N
+(      Class<?> objectClass = runtimeValue.getClass\(\);) N
+(      ) N
+(      ) S
+(if) K
+( \(PrimitiveTypes.isBoxedOrPrimitiveOrStringType\(objectClass\)\) {) p n
+(        ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(          Log.logLine\(") S
+(Making index ) str
+(" + i + ") p
+( inactive \(value is a primitive\)) str
+("\);) p n
+(        }) N
+(        seq.sequence.clearActiveFlag\(i\);) N
+(        ) N
+(        ) S
+(boolean) k
+( looksLikeObjToString = \(runtimeValue ) p
+(instanceof) K
+( String\)) p n
+(          && PrimitiveTypes.looksLikeObjectToString\(\(String\)runtimeValue\);) N
+(        ) S
+(boolean) k
+( tooLongString = \(runtimeValue ) p
+(instanceof) K
+( String\)) p n
+(          && !PrimitiveTypes.stringLengthOK\(\(String\)runtimeValue\);) N
+(        ) S
+(if) K
+( \(!looksLikeObjToString && !tooLongString && runtimePrimitivesSeen.add) p n
+(\(runtimeValue\)\) {) N
+(          ) S
+(// Have not seen this value before; add it to the component set.) c n
+(          componentManager.addGeneratedSequence\(PrimitiveOrStringOrNullDecl.sequ) p n
+(enceForPrimitive\(runtimeValue\)\);) N
+(        }) N
+(      } ) S
+(else) K
+( ) p
+(if) K
+( \(GenInputsAbstract.use_object_cache\) {) p n
+(        objectCache.setActiveFlags\(seq, i\);) N
+(      } ) S
+(else) K
+( {) p n
+(        ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(          Log.logLine\(") S
+(Making index ) str
+(" + i + ") p
+( active.) str
+("\);) p n
+(        }) N
+() N
+(      }) N
+(    }) N
+() N
+(  }) N
+() N
+(  ) S
+(/**) C n
+(   * Tries to create and execute a new sequence. If the sequence is new \(not) N
+(   * already in the specified component manager\), then it is executed and) N
+(   * added to the manager's sequences. If the sequence created is already in) N
+(   * the manager's sequences, this method has no effect, and returns null.) N
+(   */) N
+(  ) p
+(private) K
+( ExecutableSequence createNewUniqueSequence\(\) {) p n
+() N
+(    ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(------------------------------------------) str n
+(-) S
+("\);) p n
+() N
+(    StatementKind statement = ) S
+(null) k
+(;) p n
+() N
+(    ) S
+(if) K
+( \(this.statements.isEmpty\(\)\)) p n
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+() N
+(    ) S
+(// Select a StatementInfo) c n
+(    statement = Randomness.randomMember\(this.statements\);) p n
+(    ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Selected statement: ) str
+(" + statement.toString\(\)\);) p n
+() N
+(    ) S
+(// jhp: add flags here) c n
+(    InputsAndSuccessFlag  sequences = selectInputs\(statement\);) p n
+() N
+(    ) S
+(if) K
+( \(!sequences.success\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Failed to find inputs for statement.) str
+("\);) p n
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(    }) N
+() N
+(    Sequence concatSeq = Sequence.concatenate\(sequences.sequences\);) N
+() N
+(    ) S
+(// Figure out input variables.) c n
+(    List<Variable> inputs = ) p
+(new) K
+( ArrayList<Variable>\(\);) p n
+(ForwardGenerator.java) (Page 4/10) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(ForwardGenerator.java) (5/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5-6) 6
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(    ) p
+(for) K
+( \(Integer oneinput : sequences.indices\) {) p n
+(      Variable v = concatSeq.getVariable\(oneinput\);) N
+(      inputs.add\(v\);) N
+(    }) N
+() N
+(    Sequence newSequence = concatSeq.extend\(statement, inputs\);) N
+() N
+(    ) S
+(// With .5 probability, do a primitive value heuristic.) c n
+(    ) p
+(if) K
+( \(GenInputsAbstract.repeat_heuristic && Randomness.nextRandomInt\(10\) == 0\)) p n
+( {) N
+(      ) S
+(int) k
+( times = Randomness.nextRandomInt\(100\);) p n
+(      newSequence = newSequence.repeatLast\(times\);) N
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.log\(") p
+(>>>) str
+(" + times + newSequence.toCodeString\(\)\)) p n
+(;) N
+(    }) N
+() N
+(    ) S
+(// If parameterless statement, subsequence inputs) c n
+(    ) p
+(// will all be redundant, so just remove it from list of statements.) c n
+(    ) p
+(if) K
+( \(statement.getInputTypes\(\).size\(\) == 0\) {) p n
+(      statements.remove\(statement\);) N
+(    }) N
+() N
+(    ) S
+(// If sequence is larger than size limit, try again.) c n
+(    ) p
+(if) K
+( \(newSequence.size\(\) > GenInputsAbstract.maxsize\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Sequence discarded because size ) str
+(" + newSequence) p n
+(.size\(\) + ") S
+( exceeds maximum allowed size ) str
+(" + GenInputsAbstract.maxsize\);) p n
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(    }) N
+() N
+(    randoopConsistencyTests\(newSequence\);) N
+() N
+(    ) S
+(if) K
+( \(this.allSequences.contains\(newSequence\)\) {) p n
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Sequence discarded because the same sequence was pre) str n
+(viously created.) S
+("\);) p n
+(      ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(    }) N
+() N
+(    this.allSequences.add\(newSequence\);) N
+() N
+(    ) S
+(for) K
+( \(Sequence s : sequences.sequences\) {) p n
+(      s.lastTimeUsed = java.lang.System.currentTimeMillis\(\);) N
+(    }) N
+() N
+(    randoopConsistencyTest2\(newSequence\);) N
+() N
+(    ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) {) p n
+(      Log.logLine\(") S
+(Successfully created new unique sequence:) str
+(" + newSequence.toString\(\)\);) p n
+(    }) N
+(    ) S
+(//System.out.println\("###" + statement.toStringVerbose\(\) + "###" + statement) c n
+(.getClass\(\)\);) N
+() p n
+(    ) S
+(// Keep track of any input sequences that are used in this sequence) c n
+(    ) p
+(// Tests that contain only these sequences are probably redundant) c n
+(    ) p
+(for) K
+( \(Sequence is : sequences.sequences\) {) p n
+(      subsumed_sequences.add \(is\);) N
+(    }) N
+() N
+(    ) S
+(return) K
+( ) p
+(new) K
+( ExecutableSequence\(newSequence\);) p n
+(  }) N
+() N
+(  ) S
+(// Adds the string corresponding to the given newSequences to the) c n
+(  ) p
+(// set allSequencesAsCode. The latter set is intended to mirror) c n
+(  ) p
+(// the set allSequences, but stores strings instead of Sequences.) c n
+(  ) p
+(protected) K
+( ) p
+(void) k
+( randoopConsistencyTest2\(Sequence newSequence\) {) p n
+(    ) S
+(// Testing code.) c n
+(    ) p
+(if) K
+( \(GenInputsAbstract.debug_checks\) {) p n
+(      this.allsequencesAsCode.add\(newSequence.toCodeString\(\)\);) N
+(      this.allsequencesAsList.add\(newSequence\);) N
+(    }) N
+(ForwardGenerator.java) (Page 5/10) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(  }) p n
+() N
+(  ) S
+(// Checks that the set allSequencesAsCode contains a set of strings) c n
+(  ) p
+(// equivalent to the sequences in allSequences.) c n
+(  ) p
+(protected) K
+( ) p
+(void) k
+( randoopConsistencyTests\(Sequence newSequence\) {) p n
+(    ) S
+(// Testing code.) c n
+(    ) p
+(if) K
+( \(GenInputsAbstract.debug_checks\) {) p n
+(      String code = newSequence.toCodeString\(\);) N
+(      ) S
+(if) K
+( \(this.allSequences.contains\(newSequence\)\) {) p n
+(        ) S
+(if) K
+( \(!this.allsequencesAsCode.contains\(code\)\) {) p n
+(          ) S
+(throw) K
+( ) p
+(new) K
+( IllegalStateException\(code\);) p n
+(        }) N
+(      } ) S
+(else) K
+( {) p n
+(        ) S
+(if) K
+( \(this.allsequencesAsCode.contains\(code\)\) {) p n
+(          ) S
+(int) k
+( index = this.allsequencesAsCode.indexOf\(code\);) p n
+(          StringBuilder b = ) S
+(new) K
+( StringBuilder\(\);) p n
+(          Sequence  co = this.allsequencesAsList.get\(index\);) N
+(          co.equals\(newSequence\);) N
+(          b.append\(") S
+(new component:) str
+(" + Globals.lineSep + "" + newSequence.toString\() p n
+(\)  + "" + Globals.lineSep + ") S
+(as code:) str
+(" + Globals.lineSep + "" + code + Globals.lin) p n
+(eSep\);) N
+(          b.append\(") S
+(existing component:) str
+(" + Globals.lineSep + "" + this.allsequencesAs) p n
+(List.get\(index\).toString\(\) + "" + Globals.lineSep + ") S
+(as code:) str
+(" + Globals.lineSep +) p n
+( "") N
+(              + this.allsequencesAsList.get\(index\).toCodeString\(\)\);) N
+(          ) S
+(throw) K
+( ) p
+(new) K
+( IllegalStateException\(b.toString\(\)\);) p n
+(        }) N
+(      }) N
+(    }) N
+(  }) N
+() N
+(  ) S
+(// This method is responsible for doing two things:) c n
+(  ) p
+(//) c n
+(  ) p
+(// 1. Selecting at random a collection of sequences that can be used to) c n
+(  ) p
+(//    create input values for the given statement, and) c n
+(  ) p
+(//) c n
+(  ) p
+(// 2. Selecting at random valid indices to the above sequence specifying) c n
+(  ) p
+(//    the values to be used as input to the statement.) c n
+(  ) p
+(//) c n
+(  ) p
+(// The selected sequences and indices are wrapped in an InputsAndSuccessFlag) c n
+(  ) p
+(// object and returned. If an appropriate collection of sequences and indices) c n
+(  ) p
+(// was not found \(e.g. because there are no sequences in the componentManager) c n
+(  ) p
+(// that create values of some type required by the statement\), the success fla) c n
+(g) N
+(  ) p
+(// of the returned object is false.) c n
+(  @SuppressWarnings\(") p
+(unchecked) str
+("\)) p n
+(  ) S
+(private) K
+( InputsAndSuccessFlag selectInputs\(StatementKind statement\) {) p n
+() N
+(    ) S
+(// Variable inputTypes containsthe  values required as input to the) c n
+(    ) p
+(// statement given as a parameter to the selectInputs method.) c n
+() p n
+(    List<Class<?>> inputTypes = statement.getInputTypes\(\);) N
+() N
+() N
+(    ) S
+(// The rest of the code in this method will attempt to create) c n
+(    ) p
+(// a sequence that creates at least one value of type T for) c n
+(    ) p
+(// every type T in inputTypes, and thus can be used to create all the) c n
+(    ) p
+(// inputs for the statement.) c n
+(    ) p
+(// We denote this goal sequence as "S". We don't create S explicitly, but) c n
+(    ) p
+(// define it as the concatenation of the following list of sequences.) c n
+(    ) p
+(// In other words, S = sequences[0] + ... + sequences[sequences.size\(\)-1].) c n
+(    ) p
+(// \(This representation choice is for efficiency: it is cheaper to perform) c n
+(    ) p
+(//  a single concatenation of the subsequences in the end than repeatedly) c n
+(    ) p
+(// extending S.\)) c n
+(    ) p n
+(    List<Sequence> sequences = ) S
+(new) K
+( ArrayList<Sequence>\(\);) p n
+(    ) N
+(    ) S
+(// We store the total size of S in the following variable.) c n
+() p n
+(ForwardGenerator.java) (Page 6/10) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(ForwardGenerator.java) (6/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (7-8) 7
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(    ) p
+(int) k
+( totStatements = 0;) p n
+(    ) N
+(    ) S
+(// The method also returns a list of randomly-selected variables to) c n
+(    ) p
+(// be used as inputs to the statement, represented as indices into S.) c n
+(    ) p
+(// For example, given as statement a method M\(T1\)/T2 that takes as input) c n
+(    ) p
+(// a value of type T1 and returns a value of type T2, this method might) c n
+(    ) p
+(// return, for example, the sequence) c n
+(    ) p
+(//) c n
+(    ) p
+(// T0 var0 = new T0\(\); T1 var1 = var0.getT1\(\)") c n
+(    ) p
+(//) c n
+(    ) p
+(// and the singleton list [0] that represents variable var1. The variable) c n
+(    ) p
+(// indices are stored in the following list. Upon successful completion) c n
+(    ) p
+(// of this method, variables will contain inputTypes.size\(\) variables.) c n
+(    ) p
+(// Note additionally that for every i in variables, 0 <= i < |S|.) c n
+() p n
+(    List<Integer> variables = ) S
+(new) K
+( ArrayList<Integer>\(\);) p n
+() N
+(    ) S
+(// [Optimization]) c n
+(    ) p
+(// The following two variables are used in the loop below only when) c n
+(    ) p
+(// an alias ratio is present \(GenInputsAbstract.alias_ratio != null\).) c n
+(    ) p
+(// Their purpose is purely to improve efficiency. For a given loop iteration) c n
+(    ) p
+(// i, "types" contains the types of all variables in S, and  "typesToVars") c n
+(    ) p
+(// maps each type to all variable indices of the given type.) c n
+(    SubTypeSet types = ) p
+(new) K
+( SubTypeSet\() p
+(false) k
+(\);) p n
+(    MultiMap<Class<?>, Integer> typesToVars = ) S
+(new) K
+( MultiMap<Class<?>, Integer>\(\);) p n
+() N
+(    ) S
+(for) K
+( \() p
+(int) k
+( i = 0; i < inputTypes.size\(\); i++\) {) p n
+(      Class<?> t = inputTypes.get\(i\);) N
+() N
+(      ) S
+(// TODO Does this ever happen?) c n
+(      ) p
+(if) K
+(\(!Reflection.isVisible\(t\)\) ) p
+(return) K
+( ) p
+(new) K
+( InputsAndSuccessFlag \() p
+(false) k
+(, ) p
+(null) k
+(,) p n
+( ) S
+(null) k
+(\);) p n
+() N
+(      ) S
+(// true if statement st represents an instance method, and we are currentl) c n
+(y) N
+(      ) p
+(// selecting a value to act as the receiver for the method.) c n
+(      ) p
+(boolean) k
+( isReceiver = \(i == 0 && \(statement ) p
+(instanceof) K
+( RMethod\)) p n
+(          && \(!\(\(RMethod\) statement\).isStatic\(\)\)\);) N
+() N
+(      ) S
+(// If alias ratio is given, attempt with some probability to use a variabl) c n
+(e already in S.) N
+(      ) p
+(if) K
+( \(GenInputsAbstract.alias_ratio != 0 &&) p n
+(          Randomness.weighedCoinFlip\(GenInputsAbstract.alias_ratio\)\) {) N
+() N
+(        ) S
+(// candidateVars will store the indices that can serve as input to the i) c n
+(-th input in st.) N
+(        List<SimpleList<Integer>> candidateVars = ) p
+(new) K
+( ArrayList<SimpleList<Integ) p n
+(er>>\(\);) N
+(        ) N
+(        ) S
+(// For each type T in S compatible with inputTypes[i], add all the indic) c n
+(es in S of type T.) N
+(        ) p
+(for) K
+( \(Class<?> match : types.getMatches\(t\)\) {) p n
+(          ) S
+(// Sanity check: the domain of typesToVars contains all the types in v) c n
+(ariable types.) N
+(          assert typesToVars.keySet\(\).contains\(match\);) p n
+(          candidateVars.add\() S
+(new) K
+( ArrayListSimpleList<Integer>\() p
+(new) K
+( ArrayList<Integ) p n
+(er>\(typesToVars.getValues\(match\)\)\)\);) N
+(        }) N
+(        ) N
+(        ) S
+(// If any type-compatible variables found, pick one at random as the i-t) c n
+(h input to st.) N
+(        SimpleList<Integer> candidateVars2 = ) p
+(new) K
+( ListOfLists<Integer>\(candidateV) p n
+(ars\);) N
+(        ) S
+(if) K
+( \(candidateVars2.size\(\) > 0\) {) p n
+(          ) S
+(int) k
+( randVarIdx = Randomness.nextRandomInt\(candidateVars2.size\(\)\);) p n
+(          Integer randVar = candidateVars2.get\(randVarIdx\);) N
+(          variables.add\(randVar\);) N
+(          ) S
+(continue) K
+(;) p n
+(        }) N
+(ForwardGenerator.java) (Page 7/10) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      }) p n
+() N
+(      ) S
+(// If we got here, it means we will not attempt to use a value already def) c n
+(ined in S,) N
+(      ) p
+(// so we will have to augment S with new statements that yield a value of ) c n
+(type inputTypes[i].) N
+(      ) p
+(// We will do this by assembling a list of candidate sequences n\(stored in) c n
+( the list declared) N
+(      ) p
+(// immediately below\) that create one or more values of the appropriate ty) c n
+(pe, ) N
+(      ) p
+(// randomly selecting a single sequence from this list, and appending it t) c n
+(o S.) N
+(      SimpleList<Sequence> l = ) p
+(null) k
+(;) p n
+(      ) N
+(      ) S
+(// We use one of three ways to gather candidate sequences, but the third c) c n
+(ase below) N
+(      ) p
+(// is by far the most common.) c n
+() p n
+(      ) S
+(if) K
+( \(GenInputsAbstract.always_use_ints_as_objects && t.equals\(Object.class\)) p n
+(\) {) N
+(        ) N
+(        ) S
+(// 1. OBSCURE, applicable only for branch-directed generation project. G) c n
+(et all) N
+(        ) p
+(//    sequences that create one or more integer. Applicable only when in) c n
+(putTypes[i]) N
+(        ) p
+(//    is "Object" and always_use_ints_as_objects option is specified.) c n
+(        ) p
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Integer-as-object heuristic: will use random Integer.) str
+() p n
+("\);) N
+(        l = componentManager.getSequencesForType\(int.class, ) S
+(false) k
+(\);) p n
+(        ) N
+(      } ) S
+(else) K
+( ) p
+(if) K
+( \(t.isArray\(\)\) {) p n
+(        ) N
+(        ) S
+(// 2. If T=inputTypes[i] is an array type, ask the component manager for) c n
+( all sequences) N
+(        ) p
+(//    of type T \(list l1\), but also try to directly build some sequences) c n
+( that create arrays \(list l2\).) N
+(         SimpleList<Sequence> l1 = componentManager.getSequencesForType\(statemen) p n
+(t, i\);) N
+(         ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Array creation heuristic: will create helper array of t) str n
+(ype ) S
+(" + t\);) p n
+(         SimpleList<Sequence> l2 = HelperSequenceCreator.createSequence\(componen) N
+(tManager, t\);) N
+(         l = ) S
+(new) K
+( ListOfLists<Sequence>\(l1, l2\);) p n
+(         ) N
+(      } ) S
+(else) K
+( {) p n
+(        ) N
+(        ) S
+(// 3. COMMON CASE: ask the component manager for all sequences that yiel) c n
+(d the required type.) N
+(        ) p
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Will query component set for objects of type) str
+(" + t\)) p n
+(;) N
+(        l = componentManager.getSequencesForType\(statement, i\);) N
+(      }) N
+(      assert l != ) S
+(null) k
+(;) p n
+(      ) N
+(      ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(components: ) str
+(" + l.size\(\)\);) p n
+(      ) N
+(      ) S
+(// If we were not able to find \(or create\) any sequences of type inputType) c n
+(s[i], and we are) N
+(      ) p
+(// allowed the use null values, use null. If we're not allowed, then retur) c n
+(n with failure.) N
+(      ) p
+(if) K
+( \(l.size\(\) == 0\) {) p n
+(        ) S
+(if) K
+( \(isReceiver || GenInputsAbstract.forbid_null\) {) p n
+(          ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(forbid-null option is true. Failed to create new seq) str n
+(uence.) S
+("\);) p n
+(          ) S
+(return) K
+( ) p
+(new) K
+( InputsAndSuccessFlag \() p
+(false) k
+(, ) p
+(null) k
+(, ) p
+(null) k
+(\);) p n
+(        } ) S
+(else) K
+( {) p n
+(          ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(Will use null as ) str
+(" + i + ") p
+(-th input) str
+("\);) p n
+(          StatementKind st = PrimitiveOrStringOrNullDecl.nullOrZeroDecl\(t\);) N
+(          Sequence seq = ) S
+(new) K
+( Sequence\(\).extend\(st, ) p
+(new) K
+( ArrayList<Variable>\(\)\);) p n
+(ForwardGenerator.java) (Page 8/10) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(ForwardGenerator.java) (7/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (9-10) 8
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(          variables.add\(totStatements\);) p n
+(          sequences.add\(seq\);) N
+(          assert seq.size\(\) == 1;) N
+(          totStatements++;) N
+(          ) S
+(// Null is not an interesting value to add to the set of) c n
+(          ) p
+(// possible values to reuse, so we don't update typesToVars or types.) c n
+(          ) p
+(continue) K
+(;) p n
+(        }) N
+(      }) N
+() N
+(      ) S
+(// At this point, we have one or more sequences that create non-null value) c n
+(s of type inputTypes[i].) N
+(      ) p
+(// However, the user may have requested that we use null values as inputs ) c n
+(with some given frequency.) N
+(      ) p
+(// If this is the case, then use null instead with some probability. ) c n
+(      ) p
+(if) K
+( \(!isReceiver&& GenInputsAbstract.null_ratio != 0) p n
+(          && Randomness.weighedCoinFlip\(GenInputsAbstract.null_ratio\)\) {) N
+(        ) S
+(if) K
+( \(Log.isLoggingOn\(\)\) Log.logLine\(") p
+(null-ratio option given. Randomly decided to use nul) str n
+(l as input.) S
+("\);) p n
+(        StatementKind st = PrimitiveOrStringOrNullDecl.nullOrZeroDecl\(t\);) N
+(        Sequence seq = ) S
+(new) K
+( Sequence\(\).extend\(st, ) p
+(new) K
+( ArrayList<Variable>\(\)\);) p n
+(        variables.add\(totStatements\);) N
+(        sequences.add\(seq\);) N
+(        assert seq.size\(\) == 1;) N
+(        totStatements++;) N
+(        ) S
+(continue) K
+(;) p n
+(      }) N
+() N
+(      ) S
+(// At this point, we have a list of candidate sequences and need to select) c n
+( a) N
+(      ) p
+(// randomly-chosen sequence from the list.) c n
+(      Sequence chosenSeq = ) p
+(null) k
+(;) p n
+(      ) S
+(if) K
+( \(GenInputsAbstract.small_tests\) {) p n
+(        chosenSeq = Randomness.randomMemberWeighted\(l\);) N
+(      } ) S
+(else) K
+( {) p n
+(        chosenSeq = Randomness.randomMember\(l\);) N
+(      }) N
+() N
+(      ) S
+(// Now, find values that satisfy the constraint set.) c n
+(      Match m = Match.COMPATIBLE_TYPE;) p n
+(      ) S
+(//if \(i == 0 && statement.isInstanceMethod\(\)\) m = Match.EXACT_TYPE;) c n
+(      Variable randomVariable = chosenSeq.randomVariableForTypeLastStatement\(t, ) p n
+(m\);) N
+() N
+(      ) S
+(// We are not done yet: we have chosen a sequence that yields a value of t) c n
+(he required) N
+(      ) p
+(// type inputTypes[i], but there may be more than one such value. Our last) c n
+( random) N
+(      ) p
+(// selection step is to select from among all possible values.) c n
+(      ) p
+(//if \(i == 0 && statement.isInstanceMethod\(\)\) m = Match.EXACT_TYPE;) c n
+(      ) p
+(if) K
+( \(randomVariable == ) p
+(null) k
+(\) {) p n
+(        ) S
+(throw) K
+( ) p
+(new) K
+( BugInRandoopException\(") p
+(type: ) str
+(" + t + ") p
+(, sequence: ) str
+(" + chosenSeq\);) p n
+(      }) N
+() N
+(      ) S
+(// If we were unlucky and selected a null value as the receiver) c n
+(      ) p
+(// for a method call, return with failure.) c n
+(      ) p
+(if) K
+( \(i == 0) p n
+(          && \(statement ) S
+(instanceof) K
+( RMethod\)) p n
+(          && \(!\(\(RMethod\) statement\).isStatic\(\)\)) N
+(          && chosenSeq.getCreatingStatement\(randomVariable\) ) S
+(instanceof) K
+( Primitive) p n
+(OrStringOrNullDecl\)) N
+(        ) S
+(return) K
+( ) p
+(new) K
+( InputsAndSuccessFlag \() p
+(false) k
+(, ) p
+(null) k
+(, ) p
+(null) k
+(\);) p n
+() N
+(      ) S
+(// [Optimization.] Update optimization-related variables "types" and "type) c n
+(sToVars".) N
+(      ) p
+(if) K
+( \(GenInputsAbstract.alias_ratio != 0\) {) p n
+(        ) S
+(// Update types and typesToVars.) c n
+(        ) p
+(for) K
+( \() p
+(int) k
+( j = 0 ; j < chosenSeq.size\(\) ; j++\) {) p n
+(          StatementKind stk = chosenSeq.getStatementKind\(j\);) N
+(ForwardGenerator.java) (Page 9/10) (Aug 22, 10 16:33) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(          ) p
+(if) K
+( \(stk ) p
+(instanceof) K
+( PrimitiveOrStringOrNullDecl\)) p n
+(            ) S
+(continue) K
+(; ) p
+(// Prim decl not an interesting candidate for multiple use) c n
+(s.) N
+(          Class<?> outType = stk.getOutputType\(\);) p n
+(          types.add\(outType\);) N
+(          typesToVars.add\(outType, totStatements + j\);) N
+(        }) N
+(      }) N
+() N
+(      variables.add\(totStatements + randomVariable.index\);) N
+(      sequences.add\(chosenSeq\);) N
+(      totStatements += chosenSeq.size\(\);) N
+(    }) N
+() N
+(    ) S
+(return) K
+( ) p
+(new) K
+( InputsAndSuccessFlag \() p
+(true) k
+(, sequences, variables\);) p n
+(  }) N
+() N
+(  ) S
+(/**) C n
+(   * Returns the set of sequences that are used as inputs in other sequences) N
+(   * \(and can thus be thought of as subsumed by another sequence\).  ) N
+(   */) N
+(  ) p
+(public) K
+( Set<Sequence> subsumed_sequences\(\) {) p n
+(    ) S
+(return) K
+( subsumed_sequences;) p n
+(  }) N
+(}) N
+(ForwardGenerator.java) (Page 10/10) (Aug 22, 10 16:33) title
+border
+grestore
+(Printed by James Andrews) rhead
+(ForwardGenerator.java) (8/8) (Sunday December 18, 2011) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

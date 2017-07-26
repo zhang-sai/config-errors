@@ -1,0 +1,33 @@
+Go to the directory ./subjects/jchord/
+
+Run chord from Command line:
+
+go to dir: subjects/jchord/  (should not go to simpletest folder, it will have a very
+   tricky pitfall. Essentially, 2 JVMs will be lanunched, each will dump a trace file.
+   If went to the simpletest file, the later file by the parent process will override the
+   desirabl one)
+
+java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     chord.project.Boot
+     
+
+//add an option could make the race become apparent
+ -Dchord.datarace.exclude.eqth=false
+ 
+ Run examples
+ 
+ 1. ant -Dchord.work.dir=<WORK_DIR> -Dchord.run.analyses=cipa-0cfa-dlog run
+ 
+ 2. ant -Dchord.work.dir=<WORK_DIR> -Dchord.run.analyses=datarace-java run
+ 
+ 3.ant -Dchord.work.dir=<WORK_DIR> -Dchord.run.analyses=deadlock-java run
+ 
+ 4. ant -Dchord.out.dir=<OUT_DIR> -Dchord.print.project=true run
+ 
+ 5. ant -Dchord.out.dir=<OUT_DIR> -Dchord.run.analyses=ctxts-java
+ 
+ 6. do nothing
+    without append any option

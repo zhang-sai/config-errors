@@ -1,0 +1,20 @@
+help : This help / usage information.
+version : Print the version information for Jetty and dependent jars, then exit.
+list-classpath: Print the classpath information that will be used to start Jetty
+list-config:   List the resolved configuration that will be used to start Jetty.
+dry-run:  Print the command line that the start.jar generates, then exit. This may be used to generate command lines when the start.ini includes -X or -D arguments.
+exec: Run the generated command line (see --dry-run) in a sub process. This can be used when start.ini contains -X or -D arguments, but creates an extra JVM instance.
+debug :  Enable debug output of the startup procedure.
+start-log-file: A filename, relative to ${jetty.base}, where all startup output will be sent.  This is useful for capturing startup issues where the jetty specific logger has not yet kicked in due to startup configuration errors.
+list-modules :   List all modules defined by the system.
+module: Temporarily enable a module from the command line.
+add-to-start: Enable a module by appending lines to the ${jetty.base}/start.ini file.
+add-to-startd: Enable a module via creation of an ini file in the ${jetty.base}/start.d/ directory.
+write-module-graph: Create a graphviz *.dot file of the module graph as it exists for the active ${jetty.base}.
+create-files :  Create any missing files that are required by initialised modules.  
+stop :  Send a stop signal to the running Jetty instance.
+lib: Add arbitrary classpath entries to the the server classpath.
+include-jetty-dir: Include an extra jetty directory to use as a source for configuration details.  
+download: Advanced usage, If the file does not exist at the given location, download it from the given http URI.
+jetty.home: Set the home directory of the jetty distribution.
+jetty.base: Set the jetty configuration directory.  

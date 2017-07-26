@@ -1,0 +1,17 @@
+randoop 1.2.1: 16678
+randoop 1.3.2: 18571
+
+weka 3.6.1: 273577
+weka 3.6.2: 275035
+
+synoptic 0.05: 17495
+synoptic 0.10: 19153
+
+jmeter 2.8: 88715
+jmeter 2.9: 91979
+
+javalanche 0.36: 15883
+javalanche 0.40: 25144
+
+jchord 2.0: 23532
+jchord 2.1: 26617

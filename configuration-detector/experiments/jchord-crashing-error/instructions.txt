@@ -1,0 +1,233 @@
+Some crashing error from Ari Rabkin's ASE'11 paper, Table III:
+
+This instruction is applicable for the latest Chord version as of May 2012.
+
+Generally, locating crashing errors are much easier than locating non-crashing errors. For the following two major reasons:
+- crashing errors often come with a stack trace, which offers clues on which part of code should look at first
+- crashing errors sometimes come with an error message. The error message, though may not be descriptive enough, severs as a starting point
+  in problem diagnosis
+
+//if you want to record the line coverage, just replace the jar
+with chord-everystmt.jar
+
+1. no main class:
+   
+   go to dir: subjects/jchord/  (should not go to simpletest folder, it will have a very
+   tricky pitfall. Essentially, 2 JVMs will be lanunched, each will dump a trace file.
+   If went to the simpletest file, the later file by the parent process will override the
+   desirabl one)
+   
+   java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     -Dchord.main.class=notexist   [This does not exist]
+     chord.project.Boot
+       
+   Running this command gives the exception trace in: chord_output/log.txt
+   at joeq.Class.jq_Class.load(jq_Class.java:824)
+	at joeq.Class.jq_Class.verify(jq_Class.java:2101)
+	at joeq.Class.jq_Class.prepare(jq_Class.java:2126)
+	at chord.program.RTA.prepareClass(RTA.java:512)
+	at chord.program.RTA.build(RTA.java:194)
+	at chord.program.RTA.getMethods(RTA.java:144)
+	at chord.program.Program.buildMethods(Program.java:173)
+	at chord.program.Program.getMethod(Program.java:513)
+	at chord.program.Program.getMethod(Program.java:489)
+	at chord.program.Program.getMainMethod(Program.java:525)
+	at chord.analyses.method.DomM.init(DomM.java:38)
+	at chord.project.analyses.ProgramDom.run(ProgramDom.java:42)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.analyses.datarace.DataraceAnalysis.run(DataraceAnalysis.java:90)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.project.ClassicProject.run(ClassicProject.java:107)
+	at chord.project.Main.run(Main.java:78)
+	at chord.project.Main.main(Main.java:50)
+
+2. no such analysis
+
+    [use the path as 1]
+    java -cp ../chord.jar;../../../bin -Dchord.class.path=../../../bin;classes/
+       -Dchord.work.dir=.
+       -Dchord.run.analyses= not-exist [not existed analysis]
+       chord.project.Boot
+       
+    java.lang.Error: ERROR: ClassicProject: Task named 'not-exist' not found in project.
+	    at chord.project.Messages.fatal(Messages.java:24)
+	    at chord.project.ClassicProject.getTask(ClassicProject.java:344)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:413)
+	    at chord.project.ClassicProject.run(ClassicProject.java:107)
+	    at chord.project.Main.run(Main.java:78)
+	    at chord.project.Main.main(Main.java:50)
+	    
+3. wrong class path
+
+    java -cp ../chord.jar;../../../bin -Dchord.class.path=../../../bin;NOT-exist [wrong class path here]
+       -Dchord.work.dir=.
+       -Dchord.run.analyses=datarace-java
+       chord.project.Boot
+
+    Exception in thread "main" java.lang.NoClassDefFoundError: test.Test
+	    at joeq.Class.jq_Class.load(jq_Class.java:824)
+	    at joeq.Class.jq_Class.verify(jq_Class.java:2101)
+	    at joeq.Class.jq_Class.prepare(jq_Class.java:2126)
+	    at chord.program.RTA.prepareClass(RTA.java:512)
+	    at chord.program.RTA.build(RTA.java:194)
+	    at chord.program.RTA.getMethods(RTA.java:144)
+	    at chord.program.Program.buildMethods(Program.java:173)
+	    at chord.program.Program.getMethod(Program.java:513)
+	    at chord.program.Program.getMethod(Program.java:489)
+	    at chord.program.Program.getMainMethod(Program.java:525)
+	    at chord.analyses.method.DomM.init(DomM.java:38)
+	    at chord.project.analyses.ProgramDom.run(ProgramDom.java:42)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	    at chord.analyses.datarace.DataraceAnalysis.run(DataraceAnalysis.java:90)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	    at chord.project.ClassicProject.run(ClassicProject.java:107)
+	    at chord.project.Main.run(Main.java:78)
+	    at chord.project.Main.main(Main.java:50)
+	    
+4. invalid scope kind
+
+    java -cp ../chord.jar;../../../bin -Dchord.class.path=../../../bin;classes/
+       -Dchord.work.dir=.
+       -Dchord.scope.kind = not-exist [configuration error]
+       -Dchord.run.analyses=datarace-java
+       chord.project.Boot
+       
+    didn't recognize scope builder named not-exist. Expected 'rta', 'cha', 'dynamic', or the name of a class implementing ScopeBuilder.
+  java.lang.ClassNotFoundException: not-exist
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:169)
+	at chord.program.Program.buildMethods(Program.java:165)
+	at chord.program.Program.getMethod(Program.java:514)
+	at chord.program.Program.getMethod(Program.java:490)
+	at chord.program.Program.getMainMethod(Program.java:526)
+	at chord.analyses.method.DomM.init(DomM.java:38)
+	at chord.project.analyses.ProgramDom.run(ProgramDom.java:42)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.analyses.datarace.DataraceAnalysis.run(DataraceAnalysis.java:90)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.project.ClassicProject.run(ClassicProject.java:107)
+	at chord.project.Main.run(Main.java:78)
+	at chord.project.Main.main(Main.java:50)
+	
+
+5. invalid reflection kind
+
+   java.lang.Error: ERROR: Unknown value 'not-exist' for system property 'chord.reflect.kind'; expected; [none static dynamic static_cast]
+       at chord.project.Messages.fatal(Messages.java: 24)
+       at chord.project.Config.check (Config.java 233)
+       at chord.project.Config.<clinit>(Config.java: 39)
+       at chord.project.Main.main(Main.java: 19)
+
+   java -cp ../chord.jar;../../../bin -Dchord.class.path=../../../bin;classes/
+       -Dchord.work.dir=.
+       -Dchord.reflect.kind = not-exist [configuration error]
+       -Dchord.run.analyses=datarace-java
+       chord.project.Boot
+   
+
+[this is a long execution, crashes near the end]
+6. printing non-existent relation
+   java -cp ../chord.jar;../../../bin -Dchord.class.path=../../../bin;classes/
+       -Dchord.work.dir=.
+       -Dchord.print.rels = not-exist [configuration error]
+       -Dchord.run.analyses=datarace-java
+       chord.project.Boot
+       
+   java.lang.Error: Failed to load relation not-exist
+	    at chord.project.Messages.fatal(Messages.java:24)
+	    at chord.project.ClassicProject.printRels(ClassicProject.java:326)
+	    at chord.project.Main.run(Main.java:82)
+	    at chord.project.Main.main(Main.java:50)
+	    
+7. no main class
+      java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     -Dchord.main.class=test.Client   [an exist class but does not contain main method]
+     chord.project.Boot
+     
+     java.lang.Error: ERROR: RTA: Could not find main class 'test.Client' or main method in that class.
+	at chord.project.Messages.fatal(Messages.java:24)
+	at chord.program.RTA.build(RTA.java:198)
+	at chord.program.RTA.getMethods(RTA.java:144)
+	at chord.program.Program.buildMethods(Program.java:174)
+	at chord.program.Program.getMethod(Program.java:514)
+	at chord.program.Program.getMethod(Program.java:490)
+	at chord.program.Program.getMainMethod(Program.java:526)
+	at chord.analyses.method.DomM.init(DomM.java:38)
+	at chord.project.analyses.ProgramDom.run(ProgramDom.java:42)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:390)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.analyses.datarace.DataraceAnalysis.run(DataraceAnalysis.java:90)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:393)
+	at chord.project.ClassicProject.runTask(ClassicProject.java:414)
+	at chord.project.ClassicProject.run(ClassicProject.java:107)
+	at chord.project.Main.run(Main.java:78)
+	at chord.project.Main.main(Main.java:50)
+     
+8.  no context kind
+
+   also long running
+
+   the good run:
+      java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=ctxts-java
+     //-Dchord.ctxt.kind= notexist
+     chord.project.Boot
+   
+   java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     -Dchord.ctxt.kind= notexist
+     chord.project.Boot
+     
+     
+     
+9
+   print nonexist class
+   java -cp ./chord-no-trace-instrumented.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     -Dchord.print.classes= notexis [non-existing one]
+     chord.project.Boot
+     
+     java.lang.Error: ERROR: Program: Could not find class 'notexist'.
+	at chord.project.Messages.fatal(Messages.java:24)
+	at chord.program.Program.printClass(Program.java:810)
+	at chord.project.Main.run(Main.java:74)
+	at chord.project.Main.main(Main.java:50)
+   
+
+3 cases described in the ASE have vague description. We cannot reproduce them:
+
+1. no main method: it seems to be the problem of the input, rather than a configuration that a user could control
+2. diassembling nonexistent class: lacks enough details
+3. invalid context-sensitive analysis name: no clue of what it is

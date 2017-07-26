@@ -1,0 +1,6 @@
+at chord.project.Messages.fatal(Messages.java:24)
+	    at chord.project.ClassicProject.getTask(ClassicProject.java:344)
+	    at chord.project.ClassicProject.runTask(ClassicProject.java:413)
+	    at chord.project.ClassicProject.run(ClassicProject.java:107)
+	    at chord.project.Main.run(Main.java:78)
+	    at chord.project.Main.main(Main.java:50)

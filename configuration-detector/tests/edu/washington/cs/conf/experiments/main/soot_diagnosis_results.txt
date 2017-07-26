@@ -1,0 +1,70 @@
+1.
+soot.options.Options : main_class @ null, java.lang.String, static: false
+
+Suspicious configuration option: soot.options.Options.main_class
+
+It affects the behavior of predicate: 
+"Unavailable from source: soot.FastHierarchy.<init>()V, 57" 
+(line: -1, method: soot.FastHierarchy.<init>())
+
+This predicate evaluates to true: 
+   91.37134% of the time in normal runs (593 observations)
+   99.04762% of the time in an undesirable run (105 observations)
+
+
+2.
+soot.options.Options : app @ null, boolean, static: false
+
+Suspicious configuration option: soot.options.Options.app
+
+It affects the behavior of predicate: 
+"if(Options.v().app()) {" 
+(line: 1132, method: soot.Scene.prepareClasses())
+
+This predicate evaluates to true: 
+   52.029522% of the time in normal runs (423 observations)
+   100.0% of the time in an undesirable run (141 observations)
+
+
+3.
+soot.options.Options : keep_line_number @ null, boolean, static: false
+
+Suspicious configuration option: soot.options.Options.keep_line_number
+
+It affects the behavior of predicate: 
+"if (!Options.v().keep_line_number()) {" 
+(line: 805, method: soot.coffi.CFG.adjustLineNumberTable())
+
+This predicate evaluates to true: 
+   80.0% of the time in normal runs (16 observations)
+   100.0% of the time in an undesirable run (4 observations)
+
+
+4.
+soot.options.Options : allow_phantom_refs @ null, boolean, static: false
+
+Suspicious configuration option: soot.options.Options.allow_phantom_refs
+
+It affects the behavior of predicate: 
+"if( !getPhantomRefs()" 
+(line: 411, method: soot.Scene.tryLoadClass(Ljava/lang/String;I))
+
+This predicate evaluates to true: 
+   85.71429% of the time in normal runs (300 observations)
+   100.0% of the time in an undesirable run (50 observations)
+
+
+5.
+soot.options.Options : src_prec @ null, int, static: false
+
+Suspicious configuration option: soot.options.Options.src_prec
+
+It affects the behavior of predicate: 
+"File: D:\research\configurations\workspace\soot-2.5\src\soot\options\Options.java does not exist" 
+(line: 984, method: soot.options.Options.src_prec())
+
+This predicate evaluates to true: 
+   82.75862% of the time in normal runs (24 observations)
+   100.0% of the time in an undesirable run (4 observations)
+
+

@@ -1,0 +1,55 @@
+org.apache.jmeter.samplers.SampleSaveConfiguration#_time#true
+org.apache.jmeter.samplers.SampleSaveConfiguration#_timestamp#true
+org.apache.jmeter.samplers.SampleSaveConfiguration#_success#true
+org.apache.jmeter.samplers.SampleSaveConfiguration#_label#true
+org.apache.jmeter.samplers.SampleSaveConfiguration#_code#true 
+org.apache.jmeter.samplers.SampleSaveConfiguration#_message#true 
+org.apache.jmeter.samplers.SampleSaveConfiguration#_threadName#true 
+org.apache.jmeter.samplers.SampleSaveConfiguration#xml#false
+org.apache.jmeter.samplers.SampleSaveConfiguration# _responseData#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _dataType#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _encoding#true
+org.apache.jmeter.samplers.SampleSaveConfiguration#_assertions#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _latency#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _subresults#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _samplerData#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _fieldNames#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _responseHeaders#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _requestHeaders#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _responseDataOnError#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _saveAssertionResultsFailureMessage#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _timeStampFormat#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _assertionsResultsToSave#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _printMilliseconds#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _bytes#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _url#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _fileName#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _hostname#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _threadCounts#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _sampleCount#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _formatter#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _delimiter#true
+org.apache.jmeter.samplers.SampleSaveConfiguration# _idleTime#true
+org.apache.jmeter.engine.StandardJMeterEngine#exitAfterTest#true
+org.apache.jmeter.engine.StandardJMeterEngine#startListenersLater#true
+org.apache.jmeter.engine.StandardJMeterEngine#REMOTE_SYSTEM_EXIT#true
+org.apache.jmeter.engine.StandardJMeterEngine#SYSTEM_EXIT_ON_STOP_FAIL#true
+org.apache.jmeter.gui.action.Load#expandTree#true
+org.apache.jmeter.gui.action.Remove#SKIP_CONFIRM#true
+org.apache.jmeter.reporters.Summariser#TOLOG#true
+org.apache.jmeter.reporters.Summariser#TOOUT#true
+org.apache.jmeter.samplers.AbstractSampleSender#isClientConfigured#false
+org.apache.jmeter.samplers.SampleResult#GETBYTES_BODY_REALSIZE#true
+org.apache.jmeter.samplers.SampleResult#GETBYTES_HEADERS_SIZE#true
+org.apache.jmeter.samplers.SampleResult#startTimeStamp#true
+org.apache.jmeter.samplers.SampleResult#USENANOTIME#true
+org.apache.jmeter.samplers.StatisticalSampleSender#clientConfiguredKeyOnThreadName#false
+org.apache.jmeter.samplers.StatisticalSampleSender#KEY_ON_THREADNAME#true
+org.apache.jmeter.threads.JMeterThread#startEarlier#true
+org.apache.jmeter.threads.JMeterThread#reversePostProcessors#true
+org.apache.jmeter.threads.TestCompiler#IS_USE_STATIC_SET#true
+org.apache.jmeter.util.JsseSSLManager#SHARED_SESSION_CONTEXT#true
+org.apache.jmeter.samplers.BatchSampleSender#clientConfiguredTimeThresholdMs#false
+org.apache.jmeter.samplers.BatchSampleSender#TIME_THRESHOLD_MS#true
+org.apache.jmeter.samplers.StatisticalSampleSender#clientConfiguredTimeThresholdMs#false
+org.apache.jmeter.samplers.StatisticalSampleSender#TIME_THRESHOLD_MS#true

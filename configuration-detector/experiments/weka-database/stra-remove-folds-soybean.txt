@@ -1,0 +1,10 @@
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.initialize(Lweka/core/Instances;I)V_index_2#10
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.stratify(I)V_index_2#1
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.stratStep(I)V_index_25#687
+entering#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.stratStep(I)V_index_25#4
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.trainCV(II)Lweka/core/Instances;_index_2#1
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.trainCV(II)Lweka/core/Instances;_index_11#1
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.trainCV(II)Lweka/core/Instances;_index_27#1
+entering#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.trainCV(II)Lweka/core/Instances;_index_27#1
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.copyInstances(ILweka/core/Instances;I)V_index_16#514
+entering#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.copyInstances(ILweka/core/Instances;I)V_index_16#2

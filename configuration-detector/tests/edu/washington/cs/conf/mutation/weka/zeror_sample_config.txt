@@ -1,0 +1,14 @@
+t=./subjects/weka/weather.arff
+T= ./subjects/weka/label.arff
+c= last
+x= 10
+no-cv=
+split-percentage=66
+preserve-order=
+s=1
+m=
+d=
+p= 0
+z=
+threshold-file= ./tests/edu/washington/cs/conf/mutation/weka/output.arff
+threshold-label= outlook

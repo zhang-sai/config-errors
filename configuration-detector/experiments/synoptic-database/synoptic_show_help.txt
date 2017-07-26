@@ -1,0 +1,8 @@
+evaluating#synoptic.main.SynopticOptions.argsFilename#synoptic.main.Options.setOptions([Ljava/lang/String;)V_index_21#1
+evaluating#synoptic.main.SynopticOptions.randomSeed#synoptic.main.SynopticOptions.<init>([Ljava/lang/String;)V_index_138#1
+entering#synoptic.main.SynopticOptions.randomSeed#synoptic.main.SynopticOptions.<init>([Ljava/lang/String;)V_index_138#1
+evaluating#synoptic.main.SynopticOptions.logLvlQuiet#synoptic.main.Main.setUpLogging()V_index_48#1
+evaluating#synoptic.main.SynopticOptions.logLvlExtraVerbose#synoptic.main.Main.setUpLogging()V_index_64#1
+evaluating#synoptic.main.SynopticOptions.allHelp#synoptic.main.Main.processArgs(Lsynoptic/main/SynopticOptions;)Lsynoptic/main/Main;_index_6#1
+evaluating#synoptic.main.SynopticOptions.help#synoptic.main.Main.processArgs(Lsynoptic/main/SynopticOptions;)Lsynoptic/main/Main;_index_14#1
+entering#synoptic.main.SynopticOptions.help#synoptic.main.Main.processArgs(Lsynoptic/main/SynopticOptions;)Lsynoptic/main/Main;_index_14#1

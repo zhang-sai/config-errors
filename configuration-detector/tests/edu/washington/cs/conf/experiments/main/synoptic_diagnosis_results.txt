@@ -1,0 +1,12 @@
+1.
+synoptic.main.SynopticOptions : partitionRegExp @ null, java.lang.String, static: false
+
+Suspicious configuration option: synoptic.main.SynopticOptions.partitionRegExp
+
+It affects the behavior of predicate: 
+"Unavailable from source: synoptic.model.RelationPath.count()V, 139" 
+(line: -1, method: synoptic.model.RelationPath.count())
+
+This predicate evaluates to true: 
+   90.25019% of the time in normal runs (6998 observations)
+   0.573526% of the time in an undesirable run (4359 observations)

@@ -1,0 +1,11 @@
+userClassPathName
+mainClassName
+jvmargs
+workDirName
+traceFileName
+srcPathName
+userClassesDirName
+javaAnalysisPathName
+classesFileName
+bootClassesDirName
+phanton_classes

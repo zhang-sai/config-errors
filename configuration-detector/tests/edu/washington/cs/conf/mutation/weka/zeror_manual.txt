@@ -1,0 +1,25 @@
+h: Output help information.
+synopsis:Output synopsis for classifier (use in conjunction  with -h)
+t: <name of training file> Sets training file.
+T: <name of test file> Sets test file. If missing, a cross-validation will be performed on the training data.
+c: <class index> Sets index of class attribute (default: last).
+x: <number of folds> Sets number of folds for cross-validation (default: 10).
+no-cv: Do not perform any cross validation.
+split-percentage: Sets the percentage for the train/test set split, e.g., 66.
+preserve-order: Preserves the order in the percentage split.
+s: <random number seed> Sets random number seed for cross-validation or percentage split (default: 1).
+m: <name of file with cost matrix> Sets file with cost matrix.
+l: <name of input file> Sets model input file. In case the filename ends with '.xml', a PMML file is loaded or, if that fails, options are loaded from the XML file.
+d: <name of output file> Sets model output file. In case the filename ends with '.xml', only the options are saved to the XML file, not the model.
+v: Outputs no statistics for training data.
+o: Outputs statistics only, not the classifier.
+i: Outputs detailed information-retrieval statistics for each class.
+k: Outputs information-theoretic statistics.
+p: Only outputs predictions for test instances (or the train instances if no test instances provided and -no-cv is used), along with attributes (0 for none).
+distribution: Outputs the distribution instead of only the prediction in conjunction with the '-p' option (only nominal classes).
+r: Only outputs cumulative margin distribution.
+z: <class name> Only outputs the source representation of the classifier, giving it the supplied name.
+xml: Retrieves the options from the XML-data instead of the command line.
+threshold-file: <file> The file to save the threshold data to.  The format is determined by the extensions, e.g., '.arff' for ARFF format or '.csv' for CSV.
+threshold-label: <label> The class label to determine the threshold data for (default is the first label)
+D: If set, classifier is run in debug mode and may output additional info to the console

@@ -1,0 +1,111 @@
+Go to the output dir, and execute the following command to get the trace file.
+
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.classifiers.trees.J48 -t ../subjects/weka/iris.arff -i
+
+change iris.arff  to labor.arff === to get a bad trace
+
+set -R -N 2  (reduce the level pruning)
+
+
+establish a Weka database.
+
+1.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;
+../subjects/weka/java-cup.jar;../bin weka.core.Instances
+../subjects/weka/soybean.arff
+
+soybean-instance.txt
+
+2.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.classifiers.rules.ZeroR
+../subjects/weka/weather.arff
+
+weather-rules.txt
+
+3.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.classifiers.trees.J48
+../subjects/weka/weather.arff
+
+weather-j48.txt
+
+4.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.attribute.Discretize
+-i ../subjects/weka/iris.arff
+-o iris-nom.arff -c last
+
+discretize-iris.txt
+
+5.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.attribute.NominalToBinary
+-i ../subjects/weka/contact-lenses.arff
+-o contact-lenses-bin.arff -c last
+
+nomToBinary-contact-lenses.txt
+
+ 6.
+ java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.instance.Resample
+-i ../subjects/weka/soybean.arff
+-o soybean-5%.arff -c last -Z 5
+
+resample-soybean.txt
+
+7.
+ java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.instance.Resample
+-i ../subjects/weka/soybean.arff
+-o soybean-uniform-5%.arff -c last -Z 5 -B 1
+
+resample-soybean-uniform.txt
+
+8.
+ java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.instance.StratifiedRemoveFolds
+-i ../subjects/weka/soybean.arff
+-o soybean-train.arff -c last -N 4 -F 1 -V
+
+stra-remove-folds-soybean.txt
+
+9.
+ java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.supervised.instance.StratifiedRemoveFolds
+-i ../subjects/weka/soybean.arff
+-o soybean-train.arff -c last -N 4 -F 1
+
+stra-remove-folds-soybean-nov.txt
+
+10.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.unsupervised.attribute.Remove
+-R 1-2 -i ../subjects/weka/iris.arff
+-o iris-simplified.arff
+
+iris-simplified.txt
+
+11.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.filters.unsupervised.attribute.Remove
+-V -R 3-last -i ../subjects/weka/iris.arff
+-o iris-simplified.arff
+
+iris-simplified-last.txt
+
+12.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.classifiers.trees.J48 -t
+../subjects/weka/weather.arff -i
+
+weather-j48.txt
+
+13.
+java -cp ./weka-instrumented-no-trace.jar;../subjects/weka/JFlex.jar;../subjects/weka/java-cup.jar;../bin
+weka.classifiers.meta.ClassificationViaRegression
+-W "weka.classifiers.functions.LinearRegression -S 1"
+-t ../subjects/weka/iris.arff -x 2 
+
+weather-j48.txt

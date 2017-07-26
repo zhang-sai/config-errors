@@ -1,0 +1,4 @@
+	at chord.project.Messages.fatal(Messages.java:24)
+	at chord.program.Program.printClass(Program.java:810)
+	at chord.project.Main.run(Main.java:74)
+	at chord.project.Main.main(Main.java:50)

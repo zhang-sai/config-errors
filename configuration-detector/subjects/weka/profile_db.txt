@@ -1,0 +1,2 @@
+1. decision-tree examples from its user manual
+   http://kent.dl.sourceforge.net/project/weka/documentation/3.6.x/WekaManual-3-6-2.pdf

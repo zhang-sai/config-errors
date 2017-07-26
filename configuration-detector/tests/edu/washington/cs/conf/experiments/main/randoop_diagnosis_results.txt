@@ -1,0 +1,42 @@
+1.
+randoop.main.GenInputsAbstract : maxsize @ null, int, static: true
+
+Suspicious configuration option: randoop.main.GenInputsAbstract.maxsize
+
+It affects the behavior of predicate: 
+"if (newSequence.size() > GenInputsAbstract.maxsize) {" 
+(line: 312, method: randoop.ForwardGenerator.createNewUniqueSequence())
+
+This predicate evaluates to true: 
+   3.1961522% of the time in normal runs (3595 observations)
+   32.539684% of the time in an undesirable run (2898 observations)
+
+
+2.
+randoop.main.GenInputsAbstract : timelimit @ null, int, static: true
+
+Suspicious configuration option: randoop.main.GenInputsAbstract.timelimit
+
+It affects the behavior of predicate: 
+"|| (timer.getTimeElapsedMillis() >= maxTimeMillis)" 
+(line: 168, method: randoop.AbstractGenerator.stop())
+
+This predicate evaluates to true: 
+   99.9928% of the time in normal runs (124946 observations)
+   99.97146% of the time in an undesirable run (3504 observations)
+
+
+3.
+randoop.main.GenInputsAbstract : classlist @ null, java.lang.String, static: true
+
+Suspicious configuration option: randoop.main.GenInputsAbstract.classlist
+
+It affects the behavior of predicate: 
+"if (classlist == null && methodlist == null && testclass.size() == 0) {" 
+(line: 190, method: randoop.main.GenTests.handle([Ljava/lang/String;))
+
+This predicate evaluates to true: 
+   44.444447% of the time in normal runs (4 observations)
+   0.0% of the time in an undesirable run (1 observations)
+
+

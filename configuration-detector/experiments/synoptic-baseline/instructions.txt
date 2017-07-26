@@ -1,0 +1,15 @@
+go to the ./output folder, and run two similar good runs with the following
+command.
+
+1. 2pc_3nodes_100tx
+
+   java -cp ./synoptic-everystmt.jar;../subjects/synoptic/libs/*;../bin synoptic.main.Main -r "^(?<sender>),(?<receiver>),(?<TYPE>),(?<txId>)" -m "\\k<txId>" -o ./2pc_3nodes_good -d D:\tools\graphviz2.8\dot\bin\dot ../subjects/synoptic/data/2pc_3nodes_100tx.log
+   
+2. 2pc_3nodes_5tx
+
+   java -cp ./synoptic-everystmt.jar;../subjects/synoptic/libs/*;../bin synoptic.main.Main -r "^(?<sender>),(?<receiver>),(?<TYPE>),(?<txId>)" -m "\\k<txId>" -o ./2pc_3nodes_good -d D:\tools\graphviz2.8\dot\bin\dot ../subjects/synoptic/data/2pc_3nodes_5tx.log
+   
+   
+3. achieve the stmt coverage data for the bad run
+
+   java -cp ./synoptic-everystmt.jar;../subjects/synoptic/libs/*;../bin synoptic.main.Main -r "^(?<sender>),(?<receiver>),(?<TYPE>),(?<txId>)" -m "\\k<Id>" -o ./2pc_3nodes_good -d D:\tools\graphviz2.8\dot\bin\dot ../subjects/synoptic/data/2pc_3nodes_100tx.log

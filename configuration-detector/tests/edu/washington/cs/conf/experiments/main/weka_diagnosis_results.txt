@@ -1,0 +1,28 @@
+1.
+weka.classifiers.trees.J48 : m_numFolds @ null, int, static: false
+
+Suspicious configuration option: weka.classifiers.trees.J48.m_numFolds
+
+It affects the behavior of predicate: 
+"if (numFold < numInstances() % numFolds) {" 
+(line: 1354, method: weka.core.Instances.trainCV(II))
+
+This predicate evaluates to true: 
+   20.0% of the time in normal runs (4 observations)
+   70.0% of the time in an undesirable run (10 observations)
+
+
+2.
+weka.classifiers.trees.J48 : m_minNumObj @ null, int, static: false
+
+Suspicious configuration option: weka.classifiers.trees.J48.m_minNumObj
+
+It affects the behavior of predicate: 
+"return (b-a > SMALL);" 
+(line: 1083, method: weka.core.Utils.sm(DD))
+
+This predicate evaluates to true: 
+   25.816996% of the time in normal runs (158 observations)
+   45.381233% of the time in an undesirable run (1364 observations)
+
+

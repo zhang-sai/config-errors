@@ -1,0 +1,44 @@
+
+1. examples from its tutorial page:
+   http://code.google.com/p/synoptic/wiki/DocsCmdLineTutorial
+2. examples from its paper:
+   http://www.cs.washington.edu/homes/mernst/pubs/synoptic-fse2011.pdf
+   
+   
+detailed steps:
+
+go to the ./output folder (note when running in command, it must use " for the regex)
+
+java -cp ./synoptic-instrumented.jar;../subjects/synoptic/libs/*;../bin synoptic.main.Main
+
+1. good run for 2pc_3nodes
+
+   -r "^(?<sender>),(?<receiver>),(?<TYPE>),(?<txId>)"
+   -m "\\k<txId>"
+   -o ./2pc_3nodes
+   -d D:\\tools\\graphviz2.8\\dot\\bin\\dot
+   ../subjects/synoptic/2pc_3nodes_100tx.log
+   
+   Full command, can copy-paste and run:
+   
+   java -cp ./synoptic-instrumented.jar;../subjects/synoptic/libs/*;../bin synoptic.main.Main -r "^(?<sender>),(?<receiver>),(?<TYPE>),(?<txId>)" -m "\\k<txId>" -o ./2pc_3nodes_good -d D:\tools\graphviz2.8\dot\bin\dot ../subjects/synoptic/data/2pc_3nodes_100tx.log
+   
+2. error for bad run
+
+   change -m to:
+     -m '\\k<Id>'
+     
+3. Ivan's report error:
+
+   -m \k<ID>
+   
+4. use other examples in synoptic's manual
+
+   -h
+   -H
+   -V
+
+5. the apache log
+
+   -m ""
+   -r ""

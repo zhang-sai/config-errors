@@ -1,0 +1,104 @@
+
+0.
+mutate: jmeterengine.threadstop.wait with value: -4999Created the tree successfully using ../testplans/WebTestingPlan.jmx
+Starting the test @ Fri Aug 15 12:36:44 PDT 2014 (1408131404402)
+Waiting for possible shutdown message on port 4450
+Uncaught Exception java.lang.IllegalArgumentException: timeout value is negative. See log file for details.
+
+jmeterengine.threadstop.wait=-1000 (no logs)
+
+(OK, may be use NLP)
+
+
+2.
+
+oro.patterncache.size=-1001
+
+mutate: oro.patterncache.size with value: -1001Created the tree successfully using ../testplans/WebTestingPlan.jmx
+Starting the test @ Fri Aug 15 12:34:23 PDT 2014 (1408131263415)
+Waiting for possible shutdown message on port 4450
+Uncaught Exception java.lang.ExceptionInInitializerError. See log file for details.
+
+3.
+
+(OK, using NLP)
+jmeter.save.saveservice.default_delimiter=
+
+An error occurred: Delimiter '' must be of length 1.
+errorlevel=1
+Press any key to continue . . . 
+
+4.
+jmeter.save.saveservice.timestamp_format=xml
+
+An error occurred: null
+errorlevel=1
+Press any key to continue . . . 
+
+5.
+---------
+
+1.
+(Invalid)
+
+jmeter-server -H my.proxy.server -P 8000
+
+(change -P xxx, no error message)
+
+2.
+(OK)
+the reported example, change the report
+
+3.
+(OK)
+jmeter support mis-spelled configuration option
+
+
+4.
+Created the tree successfully using ../testplans/WebTestingPlan.jmx
+Starting the test @ Thu Aug 14 21:31:15 PDT 2014 (1408077075679)
+Waiting for possible shutdown message on port 4450
+Uncaught Exception java.lang.IllegalArgumentException: timeout value is negative. See log file for details.
+
+webtestingplan
+
+classfinder.functions.contain = XML
+
+(OK, it is adequate)
+
+Warning: 2014/08/15 13:18:19 WARN  - jmeter.engine.util.CompoundVariable: Did not find any functions 
+
+
+5.
+webtestingplan
+
+Created the tree successfully using ../testplans/WebTestingPlan.jmx
+Starting the test @ Thu Aug 14 21:28:00 PDT 2014 (1408076880069)
+Waiting for possible shutdown message on port 4450
+Uncaught Exception java.lang.ExceptionInInitializerError. See log file for details.
+
+OK, no warning)
+
+jmeter.exit.check.pause=614xx
+
+6.
+(OK, since if the server is not available on 8000)
+webtesting plan
+mirror.server.port with value: -8080
+
+7.
+ldapsampler.max_sorted_results=-999
+
+8.
+(OK, swallo this)
+ mutate: jmeter.httpsampler with value: summary
+ 
+ 9.
+ (swallow)
+ proxy.pause with value: 
+ 
+ 10.
+ (swallow)
+ httpclient.timeout with value: -1
+ httpclient.timeout=-1sb1
+ 

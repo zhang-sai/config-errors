@@ -1,0 +1,4 @@
+at chord.project.Messages.fatal(Messages.java: 24)
+       at chord.project.Config.check (Config.java 233)
+       at chord.project.Config.<clinit>(Config.java: 39)
+       at chord.project.Main.main(Main.java: 19)

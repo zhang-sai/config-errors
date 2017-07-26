@@ -1,0 +1,51 @@
+Others documented in the jmeter.properties and system.properties files
+
+
+
+-h, --help
+                print usage information and exit
+        -v, --version
+                print the version information and exit
+        -p, --propfile {argument}
+                the jmeter property file to use
+        -q, --addprop {argument}
+                additional property file(s)
+        -t, --testfile {argument}
+                the jmeter test(.jmx) file to run
+        -j, --jmeterlogfile {argument}
+                the jmeter log file
+        -l, --logfile {argument}
+                the file to log samples to
+        -n, --nongui
+                run JMeter in nongui mode
+        -s, --server
+                run the JMeter server
+        -H, --proxyHost {argument}
+                Set a proxy server for JMeter to use
+        -P, --proxyPort {argument}
+                Set proxy server port for JMeter to use
+        -u, --username {argument}
+                Set username for proxy server that JMeter is to use
+        -a, --password {argument}
+                Set password for proxy server that JMeter is to use
+        -J, --jmeterproperty {argument}={value}
+                Define additional JMeter properties
+        -G, --globalproperty (argument)[=(value)]
+                Define Global properties (sent to servers)
+                e.g. -Gport=123
+                 or -Gglobal.properties
+        -D, --systemproperty {argument}={value}
+                Define additional System properties
+        -S, --systemPropertyFile {filename}
+                a property file to be added as System properties
+        -L, --loglevel {argument}={value}
+                Define loglevel: [category=]level 
+                e.g. jorphan=INFO or jmeter.util=DEBUG
+        -r, --runremote (non-GUI only)
+                Start remote servers (as defined by the jmeter property remote_hosts)
+        -R, --remotestart  server1,... (non-GUI only)
+                Start these remote servers (overrides remote_hosts)
+        -d, --homedir {argument}
+                the jmeter home directory to use
+        -X, --remoteexit
+                Exit the remote servers at end of test (non-GUI)

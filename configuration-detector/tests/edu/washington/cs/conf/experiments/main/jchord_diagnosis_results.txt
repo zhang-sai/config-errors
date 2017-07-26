@@ -1,0 +1,40 @@
+1.
+chord.analyses.alias.CtxtsAnalysis : kcfa_K @ null, int, static: true
+
+Suspicious configuration option: chord.analyses.alias.CtxtsAnalysis.kcfa_K
+
+It affects the behavior of predicate: 
+"if (k >= factory.varNum())" 
+(line: 268, method: chord.bddbddb.Rel.load(Ljava/lang/String;))
+
+This predicate evaluates to true: 
+   58.08081% of the time in normal runs (230 observations)
+   52.34375% of the time in an undesirable run (128 observations)
+
+
+2.
+chord.analyses.alias.CtxtsAnalysis : kobj_K @ null, int, static: true
+
+Suspicious configuration option: chord.analyses.alias.CtxtsAnalysis.kobj_K
+
+It affects the behavior of predicate: 
+"if (k >= factory.varNum())" 
+(line: 268, method: chord.bddbddb.Rel.load(Ljava/lang/String;))
+
+This predicate evaluates to true: 
+   58.08081% of the time in normal runs (230 observations)
+   52.34375% of the time in an undesirable run (128 observations)
+
+
+3.
+chord.analyses.datarace.RelExcludeSameThread : eqth @ null, java.lang.String, static: true
+
+Suspicious configuration option: chord.analyses.datarace.RelExcludeSameThread.eqth
+
+It affects the behavior of predicate: 
+"Unavailable from source: chord.analyses.datarace.RelExcludeSameThread.fill()V, 4" 
+(line: -1, method: chord.analyses.datarace.RelExcludeSameThread.fill())
+
+This predicate evaluates to true: 
+   50.0% of the time in normal runs (1 observations)
+   100.0% of the time in an undesirable run (1 observations)

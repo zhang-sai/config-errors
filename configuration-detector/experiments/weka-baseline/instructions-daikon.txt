@@ -1,0 +1,28 @@
+Use the following command to generate invariant:
+
+go to the dir : D:\research\configurations\daikon\bin\weka
+
+1. get the good invariants 1
+
+   weka.classifiers.trees.J48 -t ../subjects/weka/iris.arff -i
+   
+   //daikon command
+   java -cp ./path/to/daikon.jar;./weka.jar; daikon.Chicory --dtrace-file= dtrace.gz TRACE_FILE_NAME
+   --ppt-select-pattern=weka\.classifiers\.trees\..*  //no " or ' here
+   [xxx] --sample-start=100
+   weka.classifiers.trees.J48 -t ./iris.arff -i
+   
+   
+2. get the good invariants 2
+
+   //the same as 1
+   weka.classifiers.trees.J48 -t weather.arff
+   
+3. get the bad invariant
+
+   weka.classifiers.trees.J48 -t labor.arff -i
+   
+
+Detect the invariant based on the above 3 trace file:
+
+   java -cp ./path/to/daikon.jar daikon.Daikon  xxx.dtrace.gz

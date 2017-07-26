@@ -1,0 +1,3 @@
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.initialize(Lweka/core/Instances;I)V_index_2#610
+evaluating#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.copyInstances(ILweka/core/Instances;I)V_index_16#151
+entering#weka.classifiers.trees.J48.m_numFolds#weka.core.Instances.copyInstances(ILweka/core/Instances;I)V_index_16#1

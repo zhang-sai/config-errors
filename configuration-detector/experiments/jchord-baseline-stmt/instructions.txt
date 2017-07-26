@@ -1,0 +1,29 @@
+filter out all other statemetns besides the chord.* package
+
+go to dir: subjects/jchord/
+
+when running daikon, must put a configuration file: chord.properties
+in the directory of ./jchord
+
+//change the chord.properties file to inject crashing errors
+
+use the command: java -cp ../../libs/daikon.jar;./chord-no-trace.jar 
+   daikon.Chicory chord.project.Boot
+
+
+1. the good run
+
+java -cp ./chord-everystmt.jar;../../bin
+     -Dchord.class.path=../../../bin;classes/
+     -Dchord.work.dir=./simpletest
+     -Dchord.run.analyses=datarace-java
+     chord.project.Boot
+     
+     -Dchord.datarace.exclude.eqth=false
+     
+     
+2.
+   ant -Dchord.work.dir=<WORK_DIR> -Dchord.run.analyses=deadlock-java run
+   
+3.
+   ant -Dchord.work.dir=<WORK_DIR> -Dchord.run.analyses=cipa-0cfa-dlog run

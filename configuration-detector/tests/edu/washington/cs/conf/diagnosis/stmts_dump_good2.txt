@@ -1,0 +1,13 @@
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#LocalLoad(Ljava/lang/Object;,0)#0
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ArrayLength()#1
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Constant(I,0)#2
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ConditionalBranch(I,eq,50)#3
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#LocalLoad(Ljava/lang/Object;,0)#4
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ArrayLength()#5
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Constant(I,1)#6
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ConditionalBranch(I,ne,12)#7
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Get(Ljava/io/PrintStream;,STATIC,Ljava/lang/System;,out)#8
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Constant(Ljava/lang/String;,"Only 1 args")#9
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Invoke(VIRTUAL,Ljava/io/PrintStream;,println,(Ljava/lang/String;)V)#10
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Goto(50)#11
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Return(V)#50

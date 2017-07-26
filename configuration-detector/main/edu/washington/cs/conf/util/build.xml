@@ -1,0 +1,7 @@
+<project name="mergejars" default="merge" basedir=".">
+  <target name="merge">
+    <zip destfile="merged.jar">
+        <zipgroupfileset dir="." includes="*.jar"/>
+    </zip>
+  </target>
+</project>

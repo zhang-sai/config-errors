@@ -1,0 +1,29 @@
+1.
+create database
+
+
+2.
+insert into database
+
+
+3.
+delete database
+
+4.
+show tables
+
+
+see the derby.log file
+
+5. launch derby server
+java -jar %DERBY_HOME%\lib\derbyrun.jar server start
+
+6. shutdown derby server
+java -jar %DERBY_HOME%\lib\derbyrun.jar server
+ shutdown
+ 
+ 7. some transactions
+ LOCK TABLE Flights IN SHARE MODE;
+ xxx
+ 
+ LOCK TABLE FlightAvailability IN EXCLUSIVE MODE;

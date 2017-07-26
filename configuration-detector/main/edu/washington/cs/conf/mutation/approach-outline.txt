@@ -1,0 +1,7 @@
+1. read the configuration property file, and make a backup
+
+2. infer the types of each configuration (and store it)
+
+3. mutate the configuration file by adapting several strategies, and create new configuration files.
+
+4. run the program

@@ -1,0 +1,16 @@
+evaluating#class-name1.conf-option1#context1#100
+entering#class-name1.conf-option1#context1#30
+evaluating#class-name2.conf-option2#context2#5
+entering#class-name2.conf-option2#context2#0
+evaluating#class-name4.conf-option4#context4#25
+entering#class-name4.conf-option4#context4#10
+evaluating#class-name4.conf-option4#context6#6
+entering#class-name4.conf-option4#context6#5
+evaluating#class-name5.conf-option5#context5#4
+entering#class-name5.conf-option5#context5#0
+evaluating#class-name6.conf-option6#context2#30
+entering#class-name6.conf-option6#context2#15
+evaluating#class-name6.conf-option6#context3#80
+entering#class-name6.conf-option6#context3#60
+evaluating#class-name6.conf-option6#context6#1
+entering#class-name6.conf-option6#context6#0

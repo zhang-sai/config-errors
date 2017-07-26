@@ -1,0 +1,94 @@
+JMeter has some tutorials
+
+jmeter -n -t ../threadgroup.jmx -l ../output.jtl -j ../testplan.log
+
+FTP and rewrite needs shutdown
+
+shutdown
+
+-
+
+(OK, saved as WebTestPlan.jmx)
+4. building a web testing plan
+http://jmeter.apache.org/usermanual/build-web-test-plan.html
+
+jmeter -n -t ../testplans/WebTestingPlan.jmx -l ../output.jtl -j ../testplan.log
+
+(OK, URL rewriting examples)
+5. an advanced web testing plan
+http://jmeter.apache.org/usermanual/build-adv-web-test-plan.html
+
+jmeter -n -t ../testplans/URLRewritingExample.jmx -l ../output.jtl -j ../testplan.log
+
+
+(OK, need to launch mysql first, by mysqld -u root)
+6. a database testing plan
+http://jmeter.apache.org/usermanual/build-db-test-plan.html
+
+jmeter -n -t ../testplans/DBTestPlan.jmx -l ../output.jtl -j ../testplan.log
+
+
+(OK this command works)
+13. run the server
+ jmeter-server -H my.proxy.server -P 8000
+ 
+ (OK)
+7. ftp testing plan
+http://jmeter.apache.org/usermanual/build-ftp-test-plan.html
+
+jmeter -n -t ../testplans/FTPTestPlan.jmx -l ../output.jtl -j ../testplan.log
+
+
+-----------------
+
+
+
+
+
+//NO LDAP
+8. LDAP plan (we did not do that)
+http://jmeter.apache.org/usermanual/build-ldap-test-plan.html
+
+//NO Webservice
+9. a webservice plan
+http://jmeter.apache.org/usermanual/build-ws-test-plan.html
+
+//NO Web service
+10. a JMS plan
+http://jmeter.apache.org/usermanual/build-jms-point-to-point-test-plan.html
+JMS topic testing plan
+
+11. a monitor test plan
+http://jmeter.apache.org/usermanual/build-monitor-test-plan.html
+
+//NO)
+12 remote testing plan
+http://jmeter.apache.org/usermanual/remote-test.html
+
+
+ 
+
+If you want the server to exit after a single test has been run, then define the JMeter property server.exitaftertest=true.
+
+To run the test from the client in non-GUI mode, use the following command:
+
+
+jmeter -n -t testplan.jmx -r [-Gprop=val] [-Gglobal.properties] [-Z]
+where:
+-G is used to define JMeter properties to be set in the servers
+-X means exit the servers at the end of the test
+-Rserver1,server2 - can be used instead of -r to provide a list of servers to start
+  Overrides remote_hosts, but does not define the property.
+
+  
+1. set proxy:
+http://jmeter.apache.org/usermanual/jmeter_proxy_step_by_step.pdf
+
+2. junit sampler:
+http://jmeter.apache.org/usermanual/junitsampler_tutorial.pdf
+
+
+
+No specific details
+3. building a testing plan
+http://jmeter.apache.org/usermanual/get-started.html

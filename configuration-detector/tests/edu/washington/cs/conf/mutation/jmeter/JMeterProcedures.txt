@@ -1,0 +1,114 @@
+http://jmeter.apache.org/usermanual/get-started.html
+
+Note: You can define additional JMeter properties in the file defined by the
+JMeter property user.properties which has the default value user.properties .
+The file will be automatically loaded if it is found in the current directory
+or if it is found in the JMeter bin directory. Similarly, system.properties is
+used to update system properties.
+
+The command line options and properties files are processed in the following order:
+
+-p propfile
+jmeter.properties (or the file from the -p option) is then loaded
+-j logfile
+Logging is initialised
+user.properties is loaded
+system.properties is loaded
+all other command-line options are processed
+
+
+Go to folder:
+
+jmeter -n -t testplan.jmx -r [-Gprop=val] [-Gglobal.properties] [-Z]
+where:
+-G is used to define JMeter properties to be set in the servers
+-X means exit the servers at the end of the test
+-Rserver1,server2 - can be used instead of -r to provide a list of servers to start
+  Overrides remote_hosts, but does not define the property.
+  
+-------------------
+
+Java system properties, JMeter properties, and logging properties can be overriden directly on the command line (instead of modifying jmeter.properties). To do so, use the following options:
+
+-D[prop_name]=[value] - defines a java system property value. 
+-J[prop name]=[value] - defines a local JMeter property. 
+-G[prop name]=[value] - defines a JMeter property to be sent to all remote servers. 
+-G[propertyfile] - defines a file containing JMeter properties to be sent to all remote servers. 
+-L[category]=[priority] - overrides a logging setting, setting a particular category to the given priority level.
+
+The -L flag can also be used without the category name to set the root logging level.
+
+Examples :
+
+
+jmeter -Duser.dir=/home/mstover/jmeter_stuff \
+    -Jremote_hosts=127.0.0.1 -Ljmeter.engine=DEBUG
+
+jmeter -LDEBUG
+
+------------------
+
+ -h, --help
+                print usage information and exit
+        -v, --version
+                print the version information and exit
+        -p, --propfile {argument}
+                the jmeter property file to use
+        -q, --addprop {argument}
+                additional property file(s)
+        -t, --testfile {argument}
+                the jmeter test(.jmx) file to run
+        -j, --jmeterlogfile {argument}
+                the jmeter log file
+        -l, --logfile {argument}
+                the file to log samples to
+        -n, --nongui
+                run JMeter in nongui mode
+        -s, --server
+                run the JMeter server
+        -H, --proxyHost {argument}
+                Set a proxy server for JMeter to use
+        -P, --proxyPort {argument}
+                Set proxy server port for JMeter to use
+        -u, --username {argument}
+                Set username for proxy server that JMeter is to use
+        -a, --password {argument}
+                Set password for proxy server that JMeter is to use
+        -J, --jmeterproperty {argument}={value}
+                Define additional JMeter properties
+        -G, --globalproperty (argument)[=(value)]
+                Define Global properties (sent to servers)
+                e.g. -Gport=123
+                 or -Gglobal.properties
+        -D, --systemproperty {argument}={value}
+                Define additional System properties
+        -S, --systemPropertyFile {filename}
+                a property file to be added as System properties
+        -L, --loglevel {argument}={value}
+                Define loglevel: [category=]level 
+                e.g. jorphan=INFO or jmeter.util=DEBUG
+        -r, --runremote (non-GUI only)
+                Start remote servers (as defined by the jmeter property remote_hosts)
+        -R, --remotestart  server1,... (non-GUI only)
+                Start these remote servers (overrides remote_hosts)
+        -d, --homedir {argument}
+                the jmeter home directory to use
+        -X, --remoteexit
+                Exit the remote servers at end of test (non-GUI)
+                
+------------
+
+jmeter ... -Jhost=www3.example.org -Jloops=13
+
+-------------
+
+jmeter -n -t script.jmx -r
+or
+jmeter -n -t script.jmx -R server1,server2...
+
+Other flags that may be useful:
+-Gproperty=value - define a property in all the servers (may appear more than once)
+-Z - Exit remote servers at the end of the test.
+
+-------------
+

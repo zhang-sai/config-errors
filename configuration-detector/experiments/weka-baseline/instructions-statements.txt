@@ -1,0 +1,14 @@
+Go to folder: ./output
+
+1. good trace 1
+
+java -cp ./weka-everystmt.jar;../subjects/weka/java-cup.jar;../subjects/weka/JFlex.jar;../bin
+weka.classifiers.trees.J48 -t ../subjects/weka/iris.arff -i
+
+2. good trace 2
+
+  -t ../subjects/weka/weather.arff
+
+3. bad trace 3
+
+-t ../subjects/weka/labor.arff -i

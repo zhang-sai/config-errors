@@ -1,0 +1,22 @@
+1. Obtain daikon: http://groups.csail.mit.edu/pag/daikon/download/
+
+See here:
+http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#StackAr-example
+
+2. compile the subject program if needed with: -g 
+
+3. produce a trace file:
+
+   java -cp ./path/to/daikon.jar daikon.Chicory --dtrace-file= TRACE_FILE_NAME
+   (run the java program: DataStructures.StackArTester)
+
+3. analyze the trace file to infer invariant:
+
+   java -cp ./path/to/daikon.jar daikon.Daikon TRACE_FILE_NAME
+   (this step will produce an invariant file)
+
+4. doing invariant diff
+   http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Invariant-Diff
+  
+   java -cp ./path/to/daikon.jar daikon.PrintInvariants INVARIANT_FILE_NAME
+   

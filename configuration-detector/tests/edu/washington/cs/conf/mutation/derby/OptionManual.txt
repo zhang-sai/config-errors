@@ -1,0 +1,112 @@
+derby.authentication.builtin.algorithm: Specifies the message digest algorithm to use to protect the passwords that are stored in the database when using NATIVE or BUILTIN authentication. The value is the name of a message digest algorithm available from one of the Java Cryptography Extension (JCE) providers registered in the JVM. Some examples of valid values are MD5, SHA-256, and SHA-512.
+
+derby.authentication.builtin.iterations: Specifies the number of times to apply the hash function (which is specified by the derby.authentication.builtin.algorithm property) on the credentials. Iteration slows down attackers by forcing them to spend more time calculating hashes.
+
+derby.authentication.builtin.saltLength: Specifies the number of bytes of random salt that will be added to users' credentials before hashing them. Random salt has the effect of making it difficult for attackers to decode passwords by constructing rainbow tables.
+
+derby.authentication.ldap.searchAuthDN: Along with derby.authentication.ldap.searchAuthPW, this property indicates how Derby should bind with the LDAP directory server to do searches for user DN (distinguished name). This property specifies the DN; derby.authentication.ldap.searchAuthPW specifies the password to use for the search.
+
+derby.authentication.ldap.searchAuthPW: Along with derby.authentication.ldap.searchAuthDN, indicates how Derby should bind with the directory server to do searches in order to retrieve a fully qualified user DN (distinguished name). This property specifies the password; derby.authentication.ldap.searchAuthDN specifies the DN to use for the search.
+
+derby.authentication.ldap.searchBase: Specifies the root DN of the point in your hierarchy from which to begin a guest or anonymous search for the user's DN.
+
+derby.authentication.ldap.searchFilter: Specifies the search filter to use to determine what constitutes a user (and other search predicate) for Derby searches for a full DN during user authentication.
+
+derby.authentication.native.passwordLifetimeMillis: Specifies the number of milliseconds a NATIVE authentication password remains valid after being created, reset, or modified. If the value is less than or equal to zero, the password never expires.
+
+derby.authentication.native.passwordLifetimeThreshold: Specifies the threshold that triggers a connection-time warning that a password is about to expire. The threshold must be a DOUBLE value greater than 0.0.
+
+derby.authentication.provider: Specifies the authentication provider for Derby user authentication.
+
+derby.authentication.server: Specifies the location of the external directory service that provides user authentication for the Derby system as defined with derby.authentication.provider. For LDAP, specify the host name and port number.
+
+derby.connection.requireAuthentication: Turns on user authentication for Derby.
+
+derby.database.classpath: Specifies the classpath that Derby should use when searching for jar files in a database.  This property must be set to enable Derby to load classes from jar files installed with the SQLJ.INSTALL_JAR system procedure
+
+derby.database.defaultConnectionMode: One of the user authorization properties.  Defines the default connection mode for users of the database or system for which this property is set.  
+
+derby.database.forceDatabaseLock: On some platforms, if set to true, prevents Derby from booting a database if a db.lck file is present in the database directory.
+
+derby.database.fullAccessUsers: One of the user authorization properties. Specifies a list of users to which full (read-write) access to a database is granted. The list consists of user names separated by commas.  Do not put spaces after commas.
+
+derby.database.noAutoBoot: Specifies that a database should not be automatically booted at startup time.
+
+derby.database.propertiesOnly: When set to true, this property ensures that database-wide properties cannot be overridden by system-wide properties.
+
+derby.database.readOnlyAccessUser: One of the user authorization properties. Specifies a list of users to which read-only access to a database is granted. The list consists of user names separated by commas.  Do not put spaces after commas.
+
+derby.database.sqlAuthorization: One of the user authorization properties.  Enables the SQL standard authorization mode for the database or system on which this property is set
+
+derby.infolog.append: Specifies whether to append to or overwrite (delete and recreate) the derby.log file when the Derby engine is started. The derby.log file is used to record errors and other information. This information can help you debug problems within a system.
+
+derby.jdbc.xaTransactionTimeout: Specifies the default value of the XA transaction timeout that is used when a user either does not specify the XA transaction timeout or requests to use the default value. It is possible to use the XAResource.setTransactionTimeout method to specify the XA transaction timeout value for the global transaction.  
+
+derby.language.logQueryPlan: When this property is set to true, Derby writes the query plan information into the derby.log file for all executed queries. This information can help you debug problems within a system.
+
+derby.language.logStatementText: When this property is set to true, Derby writes the text and parameter values of all executed statements to the information log at the beginning of execution. It also writes information about commits and rollbacks. Information includes the time and thread number.
+
+derby.language.sequence.preallocator: Specifies how many values to preallocate for sequences.
+
+derby.language.statementCacheSize: Defines the size, in number of statements, of the database statement cache (prepared statements kept in memory).  This property controls the number of precompiled statements which Derby keeps in its statement cache. Consider raising this number if statement preparation is taking too much time.
+
+derby.locks.deadlockTimeout: Determines the number of seconds after which Derby checks whether a transaction waiting to obtain a lock is involved in a deadlock. If a deadlock has occurred, and Derby chooses the transaction as a deadlock victim, Derby aborts the transaction. The transaction receives an SQLException of SQLState 40001. If the transaction is not chosen as the victim, it continues to wait for a lock if derby.locks.waitTimeout is set to a higher value than the value of derby.locks.deadlockTimeout.  
+
+derby.locks.deadlockTrace: Causes a detailed list of locks at the time of a deadlock or a timeout to be written to the error log (typically the file derby.log). For a deadlock, Derby describes the cycle of locks which caused the deadlock. For a timeout, Derby prints the entire lock list at the time of the timeout. This property is meaningful only if the derby.locks.monitor property is set to true.
+
+derby.locks.escalationThreshold: Used by the Derby system at runtime in determining when to attempt to escalate locking for at least one of the tables involved in a transaction from row-level locking to table-level locking.  
+
+derby.locks.monitor: Specifies that all deadlock errors are logged to the error log. If derby.stream.error.logSeverityLevel is set to ignore deadlock errors, derby.locks.monitor overrides it.  
+
+derby.locks.waitTimeout: Specifies the number of seconds after which Derby aborts a transaction when it is waiting for a lock. When Derby aborts (and rolls back) the transaction, the transaction receives an SQLException of SQLState 40XL1.
+
+derby.replication.logBufferSize: Specifies the size of the replication log buffers in bytes. These buffers store the log on the master side before it is shipped to the slave. There is a total of 10 such buffers. Large buffers increase memory usage but reduce the chance that the buffers will fill up (in turn increasing response time for transactions on the master, as described in the failure situation "The master Derby instance is not able to send log data to the slave at the same pace as the log is generated" in the topic "Replication failure handling" in the Derby Server and Administration Guide).
+
+derby.replication.maxLogShippingInterval: Specifies, in milliseconds, the longest interval between two consecutive shipments of the transaction log from the master to the slave. This property provides a "soft" guarantee that the slave will not deviate more than this number of milliseconds from the master.  
+
+derby.replication.minLogShippingInterval: Specifies, in milliseconds, the shortest interval between two consecutive shipments of the transaction log from the master to the slave.
+
+derby.replication.verbose: Specifies whether replication messages are written to the Derby log.
+
+derby.storage.indexStats.auto: If this property is set to true (the default), outdated index cardinality statistics are updated automatically during query compilation. The query compiler schedules a job that updates the statistics in a separate thread.
+
+derby.storage.indexStats.log: If this property is set to true, the thread that updates index cardinality statistics during query compilation will write messages to the Derby system log (derby.log) every time it performs a task. The log entries should help you to diagnose problems with the automatic updating of index statistics.
+
+derby.storage.indexStats.trace: This property allows you to enable more detailed logging of index cardinality statics than the derby.storage.indexStats.log property provides. It also allows you to specify where the tracing output should appear.
+
+derby.storage.initialPages: The on-disk size of a Derby table grows by one page at a time until eight pages of user data (or nine pages of total disk use; one is used for overhead) have been allocated.  Then it will grow by eight pages at a time if possible.
+
+derby.storage.minimumRecordSize: Indicates the minimum user row size in bytes for on-disk database pages for tables when you are creating a table. This property ensures that there is enough room for a row to grow on a page when updated without having to overflow. This is generally most useful for VARCHAR and VARCHAR FOR BIT DATA data types and for tables that are updated a lot, in which the rows start small and grow due to updates. Reserving the space at the time of insertion minimizes row overflow due to updates, but it can result in wasted space. Set the property prior to issuing the CREATE TABLE statement.
+
+
+derby.storage.pageCacheSize: Defines the size, in number of pages, of the data page cache in the database (data pages kept in memory).
+
+derby.storage.pageReservedSpace: Defines the percentage of space reserved for updates on an on-disk database page for tables only (not indexes); indicates the percentage of space to keep free on a page when inserting. Leaving reserved space on a page can minimize row overflow (and the associated performance hit) during updates. Once a page has been filled up to the reserved-space threshold, no new rows are allowed on the page. This reserved space is used only for rows that increase in size when updated, not for new inserts. Set this property prior to issuing the CREATE TABLE statement.  
+
+derby.storage.pageSize: Defines the page size, in bytes, for on-disk database pages for tables or indexes used during table or index creation. Set this property prior to issuing the CREATE TABLE or CREATE INDEX statement. This value will be used for the lifetime of the newly created conglomerates.  
+
+derby.storage.rowLocking: If set to true, enables row-level locking. When you disable row-level locking, you use table-level locking.
+
+derby.storage.tempDirectory: Defines the location on disk for temporary file space needed by Derby for performing large sorts and deferred deletes and updates. (Temporary files are automatically deleted after use, and are removed when the database restarts after a crash.) The temporary directory named by this property will be created if it does not exist, but will not be deleted when the system shuts down. The path name specified by this property must have file separators that are appropriate to the current operating system.
+
+derby.storage.useDefaultFilePermissions: If you run with Java SE 7 or later, and if you start the Derby Network Server from the command line, access to databases and to other files created by Derby is by default restricted to the operating system account that started the Network Server. File access is not restricted for embedded databases or for databases managed by servers that are started programmatically inside application code using the Derby API.
+
+derby.stream.error.extendedDiagSeverityLevel: Specifies whether thread dump information and extended diagnostic information are created, and at what level, in the event of a system crash or session error. If errors have a severity level greater than or equal to the value of the derby.stream.error.extendedDiagSeverityLevel property, thread dump and diagnostic information will appear in the derby.log file. In addition, with IBM Java Virtual Machines (JVMs), a javacore file with additional information is created.
+
+derby.stream.error.field: Specifies a static field that references a stream to which the error log is written. The field is specified using the fully qualified name of the class, then a dot (.) and then the field name. The field must be public and static. Its type can be either java.io.OutputStream or java.io.Writer.
+
+derby.stream.error.file: Specifies name of the file to which the error log is written. If the file name is relative, it is taken as relative to the system directory.
+
+derby.stream.error.logBootTrace: Specifies whether boot errors are written to the Derby log file.
+
+derby.stream.error.logSeverityLevel: Specifies which errors are logged to the Derby error log (typically the derby.log file).  In test environments, use the setting derby.stream.error.logSeverityLevel=0 so that all problems are reported.  
+
+derby.stream.error.method: Specifies a static method that returns a stream to which the Derby error log is written.
+
+derby.system.bootAll: Specifies that all databases in the directory specified by the derby.system.home property should be automatically booted at startup time.  
+
+derby.system.durability: This property changes the default durability of Derby to improve performance at the expense of consistency and durability of the database. The only valid supported case insensitive value is test.
+
+derby.system.home: Specifies the Derby system directory, which is the directory that contains subdirectories holding databases that you create and the text file derby.properties.
+
+derby.user.UserName: Has two uses: (1) Creates users and passwords when derby.authentication.provider is set to BUILTIN.  (2) Caches user DNs locally when derby.authentication.provider is set to LDAP and derby.authentication.ldap.searchFilter is set to derby.user.  

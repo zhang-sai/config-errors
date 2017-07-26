@@ -1,0 +1,584 @@
+org.apache.jorphan.logging.LoggingManager has some
+org.apache.jmeter.samplers.SampleSenderFactory has one
+JMeterUtils has some
+
+
+org.apache.jmeter.samplers.SampleSaveConfiguration
+_time
+_timestamp
+_success
+_label
+_code
+_message
+_threadName
+_xml
+_responseData
+_dataType
+_encoding
+_assertions
+_latency
+_subresults
+_samplerData
+_fieldNames
+_responseHeaders
+_requestHeaders
+_responseDataOnError
+_saveAssertionResultsFailureMessage
+_timeStampFormat
+_assertionsResultsToSave
+_printMilliseconds
+_bytes
+_url
+_fileName
+_hostname
+_threadCounts
+_sampleCount
+_formatter
+_delimiter
+_idleTime
+
+
+all static fields
+org.apache.jmeter.engine.RemoteJMeterEngineImpl
+createServer
+
+org.apache.jmeter.engine.StandardJMeterEngine
+exitAfterTest
+startListenersLater
+REMOTE_SYSTEM_EXIT
+SYSTEM_EXIT_ON_STOP_FAIL
+
+org.apache.jmeter.gui.MainFrame
+DISPLAY_LOGGER_PANEL
+DISPLAY_ERROR_FATAL_COUNTER
+DISPLAY_TOOLBAR
+
+org.apache.jmeter.gui.action.Load
+expandTree
+
+org.apache.jmeter.gui.action.Remove
+SKIP_CONFIRM
+
+org.apache.jmeter.reporters.Summariser
+TOLOG
+
+org.apache.jmeter.reporters.Summariser
+TOOUT
+
+org.apache.jmeter.samplers.AbstractSampleSender
+isClientConfigured
+
+org.apache.jmeter.samplers.SampleResult
+GETBYTES_BODY_REALSIZE
+GETBYTES_HEADERS_SIZE
+startTimeStamp
+USENANOTIME
+
+org.apache.jmeter.samplers.SampleResult.StatisticalSampleSender
+clientConfiguredKeyOnThreadName
+KEY_ON_THREADNAME
+
+org.apache.jmeter.threads.JMeterThread
+startEarlier
+reversePostProcessors
+
+
+org.apache.jmeter.threads.TestCompiler
+IS_USE_STATIC_SET
+
+org.apache.jmeter.util.JsseSSLManager
+SHARED_SESSION_CONTEXT
+
+org.apache.jmeter.samplers.BatchSampleSender
+clientConfiguredTimeThresholdMs
+TIME_THRESHOLD_MS
+
+
+org.apache.jmeter.samplers.StatisticalSampleSender
+clientConfiguredTimeThresholdMs
+TIME_THRESHOLD_MS
+
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7
+      in old: 282/282
+      in new: 103/364
+      diff: 1.4274383
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.replaceIntegerConstant.RicMethodAdapter.intConstant(I)V@62 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.replaceIntegerConstant.RicMethodAdapter.intConstant(I)V@62
+      in old: 5/5
+      in new: 8/29
+      diff: 1.1201413
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3
+      in old: 18/36
+      in new: 72/72
+      diff: 0.9863014
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55
+      in old: 18/36
+      in new: 0/54
+      diff: 0.9492771
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.arithmetic.ReplaceMap.getReplaceMap()Ljava/util/Map;@2 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.arithmetic.ReplaceMap.getReplaceMap()Ljava/util/Map;@2
+      in old: 0/2
+      in new: 18/20
+      diff: 0.92248803
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@18 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@18
+      in old: 150/150
+      in new: 77/124
+      diff: 0.7510079
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8
+      in old: 0/150
+      in new: 47/124
+      diff: 0.7424217
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2
+      in old: 1/1
+      in new: 2/14
+      diff: 0.71717167
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98
+      in old: 1/2
+      in new: 3/3
+      diff: 0.7
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11
+      in old: 92/282
+      in new: 0/103
+      diff: 0.63231266
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@24 => de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@24
+      in old: 76/150
+      in new: 140/192
+      diff: 0.44289398
+
+de.unisb.cs.st.javalanche.mutation.runtime.CoverageDataUtil.insertCoverageCalls(Lorg/objectweb/asm/MethodVisitor;Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)V@28 => de.unisb.cs.st.javalanche.mutation.runtime.CoverageDataUtil.insertCoverageCalls(Lorg/objectweb/asm/MethodVisitor;Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)V@28
+      in old: 37/37
+      in new: 28/36
+      diff: 0.42470992
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.<init>(Ljava/lang/String;Ljava/lang/String;IILde/unisb/cs/st/javalanche/mutation/results/Mutation$MutationType;)V@51 => de.unisb.cs.st.javalanche.mutation.results.Mutation.<init>(Ljava/lang/String;Ljava/lang/String;IILde/unisb/cs/st/javalanche/mutation/results/Mutation$MutationType;)V@51
+      in old: 60/76
+      in new: 75/75
+      diff: 0.41096997
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.AbstractMutationAdapter.getPossibilityForLine()I@9 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.AbstractMutationAdapter.getPossibilityForLine()I@9
+      in old: 18/56
+      in new: 53/104
+      diff: 0.3750723
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.equalsWithoutIdAndResult(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)Z@68 => de.unisb.cs.st.javalanche.mutation.results.Mutation.equalsWithoutIdAndResult(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)Z@68
+      in old: 40/77
+      in new: 33/98
+      diff: 0.36083543
+
+de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$1.accept(Ljava/io/File;)Z@3 => de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$1.accept(Ljava/io/File;)Z@3
+      in old: 5/10
+      in new: 5/7
+      diff: 0.34391522
+
+de.unisb.cs.st.javalanche.mutation.mutationPossibilities.MutationPossibilityCollector.updateDB()V@18 => de.unisb.cs.st.javalanche.mutation.mutationPossibilities.MutationPossibilityCollector.updateDB()V@18
+      in old: 1/1
+      in new: 2/2
+      diff: 0.33333337
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6
+      in old: 1/1
+      in new: 2/2
+      diff: 0.33333337
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.MutationsCollectorClassAdapter.visitMethod(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lorg/objectweb/asm/MethodVisitor;@40 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.MutationsCollectorClassAdapter.visitMethod(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lorg/objectweb/asm/MethodVisitor;@40
+      in old: 2/2
+      in new: 5/5
+      diff: 0.33333325
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.removeCalls.AbstractRemoveCallsAdapter.visitMethodInsn(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V@3 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.removeCalls.AbstractRemoveCallsAdapter.visitMethodInsn(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V@3
+      in old: 2/2
+      in new: 5/5
+      diff: 0.33333325
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14
+      in old: 1/4
+      in new: 2/5
+      diff: 0.27015248
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14
+      in old: 1/4
+      in new: 2/5
+      diff: 0.27015248
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5
+      in old: 1/1
+      in new: 1/2
+      diff: 0.19999999
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76
+      in old: 1/2
+      in new: 0/3
+      diff: 0.19999999
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.hasMutationsforClass(Ljava/lang/String;)Z@29 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.hasMutationsforClass(Ljava/lang/String;)Z@29
+      in old: 0/1
+      in new: 0/2
+      diff: 0.19999999
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13
+      in old: 2/3
+      in new: 3/4
+      diff: 0.17224872
+
+de.unisb.cs.st.javalanche.mutation.bytecodeMutations.negateJumps.AbstractNegateJumpsAdapter.visitJumpInsn(ILorg/objectweb/asm/Label;)V@3 => de.unisb.cs.st.javalanche.mutation.bytecodeMutations.negateJumps.AbstractNegateJumpsAdapter.visitJumpInsn(ILorg/objectweb/asm/Label;)V@3
+      in old: 12/46
+      in new: 18/52
+      diff: 0.16893262
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13
+      in old: 246/264
+      in new: 274/274
+      diff: 0.13564587
+
+de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$InTetsDir.matches(Ljava/io/File;Ljava/lang/String;)Z@30 => de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$InTetsDir.matches(Ljava/io/File;Ljava/lang/String;)Z@30
+      in old: 6/6
+      in new: 12/12
+      diff: 0.131868
+
+de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$InTetsDir.matches(Ljava/io/File;Ljava/lang/String;)Z@16 => de.unisb.cs.st.javalanche.mutation.testDetector.TestDetector$InTetsDir.matches(Ljava/io/File;Ljava/lang/String;)Z@16
+      in old: 6/6
+      in new: 12/12
+      diff: 0.131868
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.equalsWithoutIdAndResult(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)Z@49 => de.unisb.cs.st.javalanche.mutation.results.Mutation.equalsWithoutIdAndResult(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;)Z@49
+      in old: 30/107
+      in new: 29/127
+      diff: 0.10340896
+
+de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14 => de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14
+      in old: 36/37
+      in new: 43/47
+      diff: 0.10123646
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5
+      in old: 3/3
+      in new: 4/4
+      diff: 0.100000024
+      
+      
+      
+=============
+
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@24 => null@-1
+      in old: 36/36
+      in new: 0/0
+      diff: 1.945946
+     executed: 1112
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7
+      in old: 282/282
+      in new: 103/364
+      diff: 1.4274383
+     executed: 38
+    executed: 9
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@6 => null@-1
+      in old: 172/282
+      in new: 0/0
+      diff: 1.2172254
+     executed: 2
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3
+      in old: 18/36
+      in new: 72/72
+      diff: 0.9863014
+     executed: 2
+    executed: 2
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55
+      in old: 18/36
+      in new: 0/54
+      diff: 0.9492771
+     executed: 1
+    executed: 1
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.scanTests()V@93 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.scanTests()V@95
+      in old: 0/1
+      in new: 1/19
+      diff: 0.89502764
+     executed: 0
+    executed: 0
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8
+      in old: 0/150
+      in new: 47/124
+      diff: 0.7424217
+     executed: 2
+    executed: 19
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2
+      in old: 1/1
+      in new: 2/14
+      diff: 0.71717167
+     executed: 9
+    executed: 9
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98
+      in old: 1/2
+      in new: 3/3
+      diff: 0.7
+     executed: 2
+    executed: 2
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@15 => null@-1
+      in old: 92/282
+      in new: 0/0
+      diff: 0.6517283
+     executed: 8
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11
+      in old: 92/282
+      in new: 0/103
+      diff: 0.63231266
+     executed: 33
+    executed: 5
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@24 => de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@52
+      in old: 76/150
+      in new: 56/192
+      diff: 0.4274735
+     executed: 5
+    executed: 3
+
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@73 => null@-1
+      in old: 10/54
+      in new: 0/0
+      diff: 0.36910456
+     executed: 1125
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@11 => null@-1
+      in old: 8/44
+      in new: 0/0
+      diff: 0.3621399
+     executed: 1125
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6
+      in old: 1/1
+      in new: 2/2
+      diff: 0.33333337
+     executed: 4
+    executed: 4
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14
+      in old: 1/4
+      in new: 2/5
+      diff: 0.27015248
+     executed: 258
+    executed: 220
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14
+      in old: 1/4
+      in new: 2/5
+      diff: 0.27015248
+     executed: 230
+    executed: 207
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5
+      in old: 1/1
+      in new: 1/2
+      diff: 0.19999999
+     executed: 144
+    executed: 106
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76
+      in old: 1/2
+      in new: 0/3
+      diff: 0.19999999
+     executed: 7
+    executed: 7
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@23 => null@-1
+      in old: 18/190
+      in new: 0/0
+      diff: 0.18937926
+     executed: 0
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13
+      in old: 2/3
+      in new: 3/4
+      diff: 0.17224872
+     executed: 25
+    executed: 0
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13
+      in old: 246/264
+      in new: 274/274
+      diff: 0.13564587
+     executed: 2
+    executed: 2
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.getThreadIds([J)Ljava/util/Set;@28 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.getThreadIds([J)Ljava/util/Set;@29
+      in old: 0/22
+      in new: 0/10
+      diff: 0.107298136
+     executed: 2
+    executed: 2
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@94 => null@-1
+      in old: 1/19
+      in new: 0/0
+      diff: 0.10497238
+     executed: 0
+     not executed on new version
+
+de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14 => de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14
+      in old: 36/37
+      in new: 43/47
+      diff: 0.10123646
+     executed: 98
+    executed: 98
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5
+      in old: 3/3
+      in new: 4/4
+      diff: 0.100000024
+     executed: 34
+    executed: 0
+
+===================
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@24 => null@-1
+      in old: 36/36
+      in new: 0/0
+    -> 2163.8918
+
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@73 => null@-1
+      in old: 10/54
+      in new: 0/0
+    -> 415.24265
+
+de.unisb.cs.st.javalanche.mutation.runtime.testsuites.TestSuiteUtil.collectTests(Ljunit/framework/TestSuite;Ljava/util/Map;Ljava/util/Set;)Ljava/util/Map;@11 => null@-1
+      in old: 8/44
+      in new: 0/0
+    -> 407.4074
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@7
+      in old: 282/282
+      in new: 103/364
+    -> 41.39571
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.<init>(Ljava/lang/String;Ljava/lang/String;J)V@11
+      in old: 92/282
+      in new: 0/103
+    -> 17.704754
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager._getMutationOrNull(Lde/unisb/cs/st/javalanche/mutation/results/Mutation;Lorg/hibernate/Session;)Lde/unisb/cs/st/javalanche/mutation/results/Mutation;@8
+      in old: 0/150
+      in new: 47/124
+    -> 12.621169
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsEnd()V@14
+      in old: 1/4
+      in new: 2/5
+    -> 10.265794
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.addListenersFromProperty()V@5
+      in old: 1/1
+      in new: 1/2
+    -> 7.5999994
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.testsStart()V@14
+      in old: 1/4
+      in new: 2/5
+    -> 6.213507
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@15 => null@-1
+      in old: 92/282
+      in new: 0/0
+    -> 5.213826
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@13
+      in old: 2/3
+      in new: 3/4
+    -> 4.306218
+
+de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5 => de.unisb.cs.st.javalanche.mutation.results.persistence.QueryManager.getResultFromCountQuery(Ljava/util/List;)J@5
+      in old: 3/3
+      in new: 4/4
+    -> 3.4000008
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@6 => null@-1
+      in old: 172/282
+      in new: 0/0
+    -> 2.4344509
+
+de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@24 => de.unisb.cs.st.javalanche.mutation.results.Mutation.hashCode()I@52
+      in old: 76/150
+      in new: 56/192
+    -> 0.854947
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.SingleTestResult.hasPassed()Z@3
+      in old: 18/36
+      in new: 72/72
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@55
+      in old: 18/36
+      in new: 0/54
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.scanTests()V@93 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.scanTests()V@95
+      in old: 0/1
+      in new: 1/19
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@2
+      in old: 1/1
+      in new: 2/14
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@98
+      in old: 1/2
+      in new: 3/3
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6 => de.unisb.cs.st.javalanche.mutation.results.MutationCoverageFile.getCoveredMutations()Ljava/util/Set;@6
+      in old: 1/1
+      in new: 2/2
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@76
+      in old: 1/2
+      in new: 0/3
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.junit.Junit3MutationTestDriver$1.getResult()Lde/unisb/cs/st/javalanche/mutation/runtime/testDriver/SingleTestResult;@23 => null@-1
+      in old: 18/190
+      in new: 0/0
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13 => de.unisb.cs.st.javalanche.mutation.results.TestMessage.toString()Ljava/lang/String;@13
+      in old: 246/264
+      in new: 274/274
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.getThreadIds([J)Ljava/util/Set;@28 => de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.getThreadIds([J)Ljava/util/Set;@29
+      in old: 0/22
+      in new: 0/10
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.runtime.testDriver.MutationTestDriver.coldRun(Ljava/util/List;)Z@94 => null@-1
+      in old: 1/19
+      in new: 0/0
+    -> 0.0
+
+de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14 => de.unisb.cs.st.javalanche.mutation.results.MutationTestResult.toString()Ljava/lang/String;@14
+      in old: 36/37
+      in new: 43/47
+    -> 0.0
+
+----------no traces recorded-------

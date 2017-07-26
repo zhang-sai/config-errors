@@ -1,0 +1,69 @@
+All good examples:
+
+1. gentests help
+2. graph
+3. arraylist
+4. binary search tree
+5. binomialheap
+6. java utils
+7. treeset
+8. treeset collections
+9. show help
+10. simple-ds (done)
+11. primitives
+12. javax_xml
+
+13. jelly
+14. math
+15. logging
+16. trove
+17. utilmde
+
+18. show unpub help 
+
+Go to the output dir
+
+Must use randoop-instrumented-no-trace.jar
+
+1. run examples on Randoop's manual TreeSet
+
+//note always put daikon.jar at the beginning of a class file
+
+   java -classpath ../bin;../subjects/plume.jar;./randoop-instrumented.jar
+        randoop.main.Main gentests --testclass=java.util.TreeSet --timelimit=60
+        --dont-output-tests=true
+        
+   java -classpath ../bin;../subjects/plume.jar;./randoop-instrumented.jar
+        randoop.main.Main gentests --testclass=java.util.ArrayList --timelimit=60
+        --dont-output-tests=true
+        
+   //show help
+   java -classpath ../bin;../subjects/plume.jar;./randoop-instrumented.jar
+        randoop.main.Main help
+   
+   
+2. run the nanoxml
+   java -cp ./randoop-instrumented.jar;../bin;../subjects/plume.jar;
+   ../subjects/nanoxml.jar randoop.main.Main gentests
+   --classlist=../subjects/nano-classlist.txt --timelimit=100 --dont-output-tests=true
+   --test-classes=gco.DumpXmlRandoop
+   
+3. run the Graph example
+
+   java -cp ./randoop-instrumented-no-trace.jar;../bin;../subjects/plume.jar;.
+    randoop.main.Main gentests
+   --classlist=../graph/graph.class.txt.txt --timelimit=60 --dont-output-tests=true
+   
+4. run on all Java utility class
+
+   java -cp ./randoop-instrumented-no-trace.jar;../bin;../subjects/plume.jar;
+    randoop.main.Main gentests
+   --classlist=./java.utils.classes --timelimit=60 --dont-output-tests=true
+
+5. command to show unpub options: easy.
+   unpub help
+   
+6.  simple-ds
+    java -cp ./randoop-instrumented-no-trace.jar;../bin;../subjects/plume.jar;.
+    randoop.main.Main gentests
+    --classlist=./ds/ds.class.txt --timelimit=60 --dont-output-tests=true

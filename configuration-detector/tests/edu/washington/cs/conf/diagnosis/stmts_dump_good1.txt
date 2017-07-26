@@ -1,0 +1,5 @@
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#LocalLoad(Ljava/lang/Object;,0)#0
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ArrayLength()#1
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Constant(I,0)#2
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#ConditionalBranch(I,eq,50)#3
+test.slice.depfield.SeeCoverage.main([Ljava/lang/String;)V#Return(V)#50

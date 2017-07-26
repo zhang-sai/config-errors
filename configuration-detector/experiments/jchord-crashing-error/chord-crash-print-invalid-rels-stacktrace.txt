@@ -1,0 +1,4 @@
+at chord.project.Messages.fatal(Messages.java:24)
+	    at chord.project.ClassicProject.printRels(ClassicProject.java:326)
+	    at chord.project.Main.run(Main.java:82)
+	    at chord.project.Main.main(Main.java:50)

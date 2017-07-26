@@ -1,0 +1,21 @@
+user manual:
+http://db.apache.org/derby/docs/10.10/getstart/getstartderby.pdf
+
+property manual:
+http://db.apache.org/derby/docs/10.9/ref/refderby.pdf
+
+create a derby.properties file under the folder where the database is launched
+
+Any property except derby.system.home can be set by including it in the derby.properties file.
+
+
+put all properties there
+
+go to the folder:
+E:\conf-vul\programs\derby\db-derby-10.10.1.1-bin\derbytutor
+
+java -jar ..\lib\derbyrun.jar ij connection.txt
+
+=====
+
+set DERBY_OPTS=-Dij.protocol=jdbc:derby://localhost/  page 18

@@ -1,0 +1,93 @@
+Go to:
+E:\conf-vul\programs\weka\weka-3-6-11
+
+as the main directory
+
+1.
+zero r
+java weka.classifiers.rules.ZeroR -t weather.arff
+
+
+2.
+instance
+
+java -cp weka.jar weka.core.Instances data/soybean.arff
+
+
+
+3.
+converter
+
+java weka.core.converters.CSVLoader data.csv > data.arff
+java weka.core.converters.C45Loader c45_filestem > data.arff
+
+4.
+java weka.classifiers.trees.J48 -t weather.arff
+
+5.
+java weka.filters.supervised.attribute.Discretize -i data/iris.arff -o iris-nom.arff -c last
+
+6.
+java weka.filters.supervised.attribute.NominalToBinary -i data/contact-lenses.arff -o contact-lenses-bin.arff -c last
+
+7.
+java weka.filters.supervised.instance.Resample -i data/soybean.arff -o soybean-5%.arff -c last -Z 5
+java weka.filters.supervised.instance.Resample -i data/soybean.arff -o soybean-uniform-5%.arff -c last -Z 5 -B 1
+
+8.
+java weka.filters.supervised.instance.StratifiedRemoveFolds \
+-i data/soybean.arff -o soybean-train.arff \
+-c last -N 4 -F 1 -V
+java weka.filters.supervised.instance.StratifiedRemoveFolds \
+-i data/soybean.arff -o soybean-test.arff \
+-c last -N 4 -F 1
+
+9.
+
+java weka.filters.unsupervised.attribute.Remove -R 1-2 \
+-i data/iris.arff -o iris-simplified.arff
+java weka.filters.unsupervised.attribute.Remove -V -R 3-last \
+-i data/iris.arff -o iris-simplified.arff
+
+10
+java weka.filters.unsupervised.instance.Resample -i data/soybean.arff \
+-o soybean-5%.arff -Z 5
+
+11
+java weka.filters.unsupervised.instance.RemoveFolds -i data/soybean.arff \
+-o soybean-train.arff -c last -N 4 -F 1 -V
+java weka.filters.unsupervised.instance.RemoveFolds -i data/soybean.arff \
+-o soybean-test.arff -c last -N 4 -F 1
+
+12
+java weka.filters.unsupervised.instance.RemoveWithValues -i data/soybean.arff \
+-o soybean-without_herbicide_injury.arff -V -C last -L 19
+
+13.
+
+java weka.classifiers.trees.J48 -t data/weather.arff -i
+
+14.
+
+java weka.classifiers.bayes.NaiveBayes -K -t soybean-train.arff -T soybean-test.arff -p 0
+
+15.
+java weka.classifiers.meta.ClassificationViaRegression \
+-W weka.classifiers.functions.LinearRegression -S 1 \
+-t data/iris.arff -x 2
+  
+(illegal?)
+
+java weka.classifiers.meta.ClassificationViaRegression \
+-W "weka.classifiers.functions.LinearRegression -S 1" \
+-t data/iris.arff -x 2
+
+java weka.classifiers.meta.ClassificationViaRegression \
+-W weka.classifiers.functions.LinearRegression \
+-t data/iris.arff -x 2 -- -S 1
+
+java weka.classifiers.meta.Stacking -B "weka.classifiers.lazy.IBk -K 10" \
+-M "weka.classifiers.meta.ClassificationViaRegression -W weka.classifiers.functions.LinearRegression -- -S 1" \
+-t data/iris.arff -x 2
+
+16.
